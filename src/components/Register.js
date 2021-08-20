@@ -16,20 +16,27 @@ class Register extends React.Component{
         this.setState({password: e.target.value});
     }
     handleSubmit(e){
-        console.log(this.state.email);
-        console.log(this.state.password);
         //prevent default behavior of form submit
         e.preventDefault();
         //code
-        const user = {
-            email: this.state.email,
-            password: this.state.password
-        };
-        console.log(user);
-        axios.post('http://localhost:8080/api/auth/signup/', user).then(res=>{
-            console.log(res);
-            console.log(res.data);
-        })
+        //check for empty fields
+        if(this.state.email && this.state.password !== ''){
+            console.log(this.state.email);
+            console.log(this.state.password);
+            //bind as json
+            const user = {
+                email: this.state.email,
+                password: this.state.password
+            }
+            axios.post('http://localhost:8080/api/auth/signup/', user).then(res=>{
+                console.log(res);
+                console.log(res.data);
+                //if everything is okay load updateprofile page
+            })
+            this.props.history.push('/updateprofile');
+        }else{
+            console.log("No Data provide!");
+        }
     }
     render(){
         return(
@@ -51,7 +58,7 @@ class Register extends React.Component{
                         </form>
                     </div>
                 </div>
-            </div>
+            </div>        
         );
     }
 }
