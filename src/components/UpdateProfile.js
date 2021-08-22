@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import { notify } from 'react-notify-toast';
+import Spinner from './Spinner';
 
 
 class UpdateProfile extends React.Component{
@@ -10,6 +12,11 @@ class UpdateProfile extends React.Component{
         this.handleSubmit = this.handleSubmit.bind(this);
         this.getFileInfo = this.getFileInfo.bind(this);
     };
+    //some inits
+    state = {
+        sendingEmail: false
+    };
+    //definitions
     handleUsernameChange(e){
         this.setState({username: e.target.value});
     }
@@ -27,6 +34,9 @@ class UpdateProfile extends React.Component{
     }
     handleSubmit(e){
         e.preventDefault();
+        //some awesome code
+        this.setState({sendingEmail: true});
+        //code
         if(this.state.name && this.state.username !== ''){
                     
             const formData = new FormData();
@@ -34,18 +44,23 @@ class UpdateProfile extends React.Component{
             formData.set('luetext', this.state.username);
             //console.log(formData);
 
-            axios.post("http://localhost:8080/updateprofile", formData).then(res=>{
+            axios.post("http://localhost:8080/updateprofile", formData)
+            .then(res=>{
+                this.setState({sendingEmail: false});
                 console.log("Axios response: ", res);
+                console.log(res.data);
+                notify.show(res.data.msg);
+                //reroute
+                this.props.history.push("/activate_account");
             }).catch((error)=>{
                 console.log(error);
             })
-            //reroute
-            this.props.history.push("/activate_account");
         }else{
             console.log("Not Data provided");
         }
     }
     render(){
+        const { sendingEmail } = this.state;
         return(
             <div className="container">
                 <div className="row">
@@ -64,7 +79,13 @@ class UpdateProfile extends React.Component{
                                 <input type="text" name="username" value={this.state.uname} onChange={this.handleUsernameChange} className="form-control"/>
                             </div>
                             <div className="form-group">
-                                <button className="btn btn-primary">JUMP IN</button>
+                                <button type="submit" className="btn btn-primary" disabled={sendingEmail}>
+                                    {
+                                        sendingEmail
+                                        ? <Spinner size='lg' spinning='spinning' />
+                                        : "JUMP IN"
+                                    }
+                                </button>
                             </div>
                         </form>
                     </div>

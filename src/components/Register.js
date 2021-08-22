@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { notify } from 'react-notify-toast';
 
 class Register extends React.Component{
     constructor(props){
@@ -18,6 +19,7 @@ class Register extends React.Component{
     handleSubmit(e){
         //prevent default behavior of form submit
         e.preventDefault();
+        //some awesome code
         //code
         //check for empty fields
         if(this.state.email && this.state.password !== ''){
@@ -29,9 +31,10 @@ class Register extends React.Component{
                 password: this.state.password
             }
             axios.post('http://localhost:8080/api/auth/signup/', user).then(res=>{
-                console.log(res);
-                console.log(res.data);
-                //if everything is okay load updateprofile page
+                //console.log(res);
+                console.log(res.data.message);
+                //if everything is okay load updateprofile page toast
+                notify.show(res.data.message);
             })
             this.props.history.push('/updateprofile');
         }else{
