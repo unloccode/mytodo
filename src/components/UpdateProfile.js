@@ -3,6 +3,11 @@ import axios from 'axios';
 import { notify } from 'react-notify-toast';
 import Spinner from './Spinner';
 
+import x from '../respictures/user.png';
+import '../UI/profile.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faCamera} from '@fortawesome/free-solid-svg-icons';
+
 
 class UpdateProfile extends React.Component{
     constructor(props){
@@ -68,15 +73,19 @@ class UpdateProfile extends React.Component{
                         <h1>Update your Profile</h1>
                         <form onSubmit={this.handleSubmit}>
                             <div className="form-group">
-                                <label htmlFor="uploadprofile">Upload profile picture</label>
-                                <input type="file" onChange={this.getFileInfo} className="form-control" />
+                                {
+                                    this.state.imagepreview
+                                    ? <img src={this.state.imagepreview} alt="" className="uiprofile" />
+                                    : <img src={x} alt="" className="uiprofile"/>
+                                }
                             </div>
                             <div className="form-group">
-                                <img src={this.state.imagepreview} alt="" width="200" height="200"/>
+                                <label htmlFor="uploadprofile"><FontAwesomeIcon icon={faCamera} size="2x" /></label>
+                                <input type="file" onChange={this.getFileInfo} id="uploadprofile" className="form-control" style={{display: "none"}}  />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="username">Username</label>
-                                <input type="text" name="username" value={this.state.uname} onChange={this.handleUsernameChange} className="form-control"/>
+                                <input type="text" name="username" value={this.state.uname} onChange={this.handleUsernameChange} className="form-control" required  />
                             </div>
                             <div className="form-group">
                                 <button type="submit" className="btn btn-primary" disabled={sendingEmail}>

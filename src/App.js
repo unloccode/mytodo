@@ -7,6 +7,8 @@ import Register from './components/Register';
 import UpdateProfile from './components/UpdateProfile';
 import ActivateAccount from './components/activateAccount';
 import AccountWait from './components/AccountWait';
+import Email from './tests/Email';
+import Login from './components/Login';
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
           <Route exact path="/updateprofile" component={UpdateProfile} />
           <Route exact path="/confirm/:id" component={ActivateAccount} />
           <Route exact path="/activate_account" component={AccountWait} />
+          <Route exact path="/testemail" component={Email} />
+          <Route exact path="/login" component={Login} />
         </Switch>
       </div>
     </Router>
