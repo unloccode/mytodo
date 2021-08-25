@@ -1,5 +1,6 @@
 import React from 'react';
-import axios from 'axios';
+//import axios from 'axios';
+import AuthService from '../services/auth.service';
 import { notify } from 'react-notify-toast';
 
 export default class Login extends React.Component{
@@ -23,21 +24,33 @@ export default class Login extends React.Component{
         console.log(this.state.password);
         //send data to backend
         //bind data
-        const user = {
-            email: this.state.email,
-            password: this.state.password
-        };
+        //const user = {
+        //    email: this.state.email,
+        //    password: this.state.password
+        //};
         //portal
-        axios.post("http://localhost:8080/api/auth/signin", user)
-        .then(res=>{
-            console.log(res.data.accessToken);
-            console.log(res.data.email);
-            console.log(res.data.id);
-            notify.show('Logged In')
-        }).catch(error=>{
-            console.log(error.response.data);
-            notify.show(error.response.data.message);
-        })
+        //axios.post("http://localhost:8080/api/auth/signin", user)
+        //.then(res=>{
+        //    console.log(res.data.accessToken);
+        //    console.log(res.data.email);
+        //    console.log(res.data.id);
+        //    notify.show('Logged In')
+        //}).catch(error=>{
+        //    console.log(error.response.data);
+        //    notify.show(error.response.data.message);
+        //})
+        AuthService.login(this.state.email, this.state.password).then(()=>{
+            //coded
+            notify.show('Logged In');
+            this.props.history.push("/homer");
+            window.location.reload();
+        },
+        error=>{
+            const resMessage = (error.response && error.response.data && error.response.data.message) ||
+            error.message || error.toString();
+            console.log(resMessage);
+        }
+        );
     }
     render(){
         return(
