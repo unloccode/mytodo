@@ -1,8 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { notify } from 'react-notify-toast';
 import Spinner from './Spinner';
+import '../App.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+import mytodoLogo from '../respictures/mytodologo.png';
 
 
 class ActivateAccount extends React.Component{
@@ -22,21 +26,36 @@ class ActivateAccount extends React.Component{
     }
     render(){
         return(
-            <div className="container">
+            <div className="container-fluid">
                 <div className="row">
-                    <div className="col-sm-12">
-                        <div className="display-3">Wait While We Activate Your Account!</div>
-                        <Link to="/" className="btn btn-warning">Teleport to Registry TimeStamp</Link>
-                        <div className="text-center">
-                            <div className="confirm">
+                    <nav className="navbar mainbg col-sm-12">
+                        <div className="navbar-brand text-white">
+                            <img src={mytodoLogo} alt="eye" height="30px" />
+                        </div>
+                    </nav>
+                    <div className="col-sm-12 position-absolute h-100">
+                        <div className="card w-50" style={{position: 'relative', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', borderRadius: '10px', border: 'none'}} >
+                            <div className="card-body boxshado" style={{borderRadius: '10px'}} >
                                 {
                                     this.state.confirming
-                                        ? <Spinner size='8x' spinning={'spinning'} />
-                                        : <Link to='/'>
-                                            <Spinner size='8x' spinning={''} />
-                                        </Link>
+                                    ? <div className="text-center" style={{fontSize: '16px', fontWeight: 'bold'}} >ACTIVATING YOUR ACCOUNT</div>
+                                    : <div className="text-center" style={{fontSize: '16px', fontWeight: 'bold'}} >ACCOUNT ACTIVATED</div>
                                 }
+                                <div className="confirm text-center mt-5 pt-5">
+                                    {
+                                        this.state.confirming
+                                        ? <Spinner size='8x' spinning='fa-spin' />
+                                        : <FontAwesomeIcon icon={faCheckCircle} size='8x' />
+                                    }
+                                </div>
+                                <div className="mt-4 pt-4"></div>
+                                <div className="text-center">
+                                    <Link to="/login"><button className="btn" style={{backgroundColor: 'black', color: 'white', padding: '6px 20px', fontSize: '12px', borderRadius: '15px'}} >Login</button></Link>
+                                </div>
                             </div>
+                        </div>
+                        <div className="footer">
+                            <p className="termsApplypro">Terms & Conditions Apply.</p>
                         </div>
                     </div>
                 </div>

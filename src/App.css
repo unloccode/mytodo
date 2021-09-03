@@ -36,3 +36,85 @@
     transform: rotate(360deg);
   }
 }
+
+.mainbg{
+  background-color: black;
+}
+.centered{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.loginbtn{
+  border-radius: 20px;
+  background-color: black;
+  border: none;
+  color: white;
+  display: inline-block;
+  text-decoration: none;
+  padding: 6px 25px;
+  font-size: 12px;
+  cursor: pointer;
+  font-weight: lighter;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.font16{
+  font-size: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 700;
+}
+.kustomform{
+  border-radius: 20px;
+}
+.downbtn{
+  font-size: 16px;
+  padding: 6px 25px;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight:700;
+  font-style: italic;
+}
+.termsApply{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: lighter;
+  font-size: 10px;
+  position: absolute;
+  bottom: 20px;
+  margin-left: 35%;
+}
+
+.termsApplypro{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: lighter;
+  font-size: 10px;
+  position: absolute;
+  bottom: 20px;
+  margin-left: 45%;
+}
+
+.pwd-container{
+  position: relative;
+}
+
+.pwd-container input {
+  padding: 5px 30px 5px 10px;
+  font-size: 20px;
+}
+
+.pwd-container img {
+  cursor: pointer;
+  position: absolute;
+  width: 20px;
+  right: 15px;
+  top: 45px;
+}
+
+.boxshado{
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.reset-container{
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import AuthService from '../services/auth.service';
+import mytodoLogo from '../respictures/mytodologo.png';
 
 export default class Homer extends React.Component{
     constructor(props){
@@ -9,11 +10,13 @@ export default class Homer extends React.Component{
     render(){
         const {currentUser} = this.state;
         return(
-            <div className="container">
+            <div className="container-fluid">
                 <div className="row">
-                    <div className="col-sm-12 bg-warning text-center">
-                        <div className="display-3 text-primary">H O M E R.</div>
-                    </div>
+                    <nav className="col-sm-12 navbar" style={{backgroundColor: 'black'}} >
+                        <div className="navbar-brand">
+                            <img src={mytodoLogo} alt="eye" height="30px" />
+                        </div>
+                    </nav>
                     <div className="col-sm-12">
                         <header className="jumbotron">
                             <h3>
