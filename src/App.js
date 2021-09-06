@@ -13,27 +13,12 @@ import Login from './components/Login';
 import Homer from './components/Homer';
 import ResetPassword from './components/ResetPassword';
 //auths
-import AuthService from "./services/auth.service";
+import MakePasswordChanges from './components/MakePasswordChanges';
+import PasswordChangedSuccess from './components/PasswordChangedSuccess';
+import ResetRequestSuccess from './components/ResetRequestSuccess';
 
 class App extends React.Component{
-  constructor(props){
-    super(props);
-    this.state = {currentUser: undefined};
-    this.Logout = this.Logout.bind(this);
-  }
-  componentDidMount(){
-    const user = AuthService.getCurrentUser();
-    console.log(user);
-    if(user){
-      this.setState({currentUser: user});
-    }
-  }
-  //logout
-  Logout(){
-    AuthService.logout();
-  }
   render(){
-    //const {currentUser} = this.state;
     return (
       <Router>
         <Notifications/>
@@ -46,6 +31,9 @@ class App extends React.Component{
             <Route exact path="/login" component={Login} />
             <Route path="/homer" component={Homer} />
             <Route path="/resetpassword" component={ResetPassword} />
+            <Route exact path="/accountsettings/:id" component={MakePasswordChanges} />
+            <Route path="/pwdsuccess" component={PasswordChangedSuccess} />
+            <Route path="/pwdrqsuccess" component={ResetRequestSuccess} />
           </Switch>
       </Router>
     ); 

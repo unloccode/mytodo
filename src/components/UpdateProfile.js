@@ -9,12 +9,13 @@ import '../UI/profile.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faCamera} from '@fortawesome/free-solid-svg-icons';
 import  mytodoLogo from '../respictures/mytodologo.png';
+import AuthService from '../services/auth.service';
 
 
 class UpdateProfile extends React.Component{
     constructor(props){
         super(props);
-        this.state = {imagepreview: '', name: '', username: ''};
+        this.state = {imagepreview: '', name: '', username: '', currentUser: AuthService.getCurrentUser()};
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.getFileInfo = this.getFileInfo.bind(this);
@@ -38,6 +39,14 @@ class UpdateProfile extends React.Component{
         //formData.append('my-image-file', e.target.files[0], e.target.files[0].name);
         //formData.set("thanos", this.state.username);
         //this.setState({imagemetas: formData});
+    }
+    //auth
+    componentDidMount(){
+        const user = AuthService.getCurrentUser();
+        if(user){
+            console.log(user);
+            this.setState({currentUser: user});
+        }
     }
     handleSubmit(e){
         e.preventDefault();
@@ -67,48 +76,56 @@ class UpdateProfile extends React.Component{
         }
     }
     render(){
-        const { sendingEmail } = this.state;
+        const { sendingEmail, currentUser } = this.state;
         return(
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="col-sm-9 mainbg position-absolute h-100">
-                        <h4 style={{fontSize:'14px', fontWeight:'bolder'}} className="mt-3">MYTODO</h4>
-                        <img src={mytodoLogo} alt="MYTODO" height="100" style={{position:'absolute', top:'50%', left: '50%', transform: 'translate(-50%, -50%'}} />
-                    </div>
-                    <div className="col-sm-3 offset-sm-9 position-absolute h-100">
-                        <h3 className="text-center mt-4 pb-4 font16">Update your profile</h3>
-                        <form onSubmit={this.handleSubmit}>
-                        <p className="mt-3">Profile picture</p>
-                            <div className="form-group text-center">
-                                {
-                                    this.state.imagepreview
-                                    ? <img src={this.state.imagepreview} alt="" className="uiprofile" />
-                                    : <img src={x} alt="" className="uiprofile"/>
-                                }
+            <div>
+                {
+                    currentUser ? (
+                        this.props.history.push("/homer")
+                    ) : (
+                        <div className="container-fluid">
+                            <div className="row">
+                                <div className="col-sm-9 mainbg position-absolute h-100">
+                                    <h4 style={{fontSize:'14px', fontWeight:'bolder'}} className="mt-3">MYTODO</h4>
+                                    <img src={mytodoLogo} alt="MYTODO" height="100" style={{position:'absolute', top:'50%', left: '50%', transform: 'translate(-50%, -50%'}} />
+                                </div>
+                                <div className="col-sm-3 offset-sm-9 position-absolute h-100">
+                                    <h3 className="text-center mt-4 pb-4 font16">Update your profile</h3>
+                                    <form onSubmit={this.handleSubmit}>
+                                    <p className="mt-3">Profile picture</p>
+                                        <div className="form-group text-center">
+                                            {
+                                                this.state.imagepreview
+                                                ? <img src={this.state.imagepreview} alt="" className="uiprofile" />
+                                                : <img src={x} alt="" className="uiprofile"/>
+                                            }
+                                        </div>
+                                        <div className="form-group text-center">
+                                            <label htmlFor="uploadprofile"><FontAwesomeIcon icon={faCamera} size="2x" style={{position:'relative', top: '-70px', left: '70px', color: 'black'}} /></label>
+                                            <input type="file" onChange={this.getFileInfo} id="uploadprofile" className="form-control" style={{display: "none"}}  />
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="username">Username</label>
+                                            <input type="text" name="username" value={this.state.uname} onChange={this.handleUsernameChange} className="form-control" required style={{borderRadius: '20px'}} />
+                                        </div>
+                                        <div className="form-group text-center">
+                                            <button type="submit" className="btn" disabled={sendingEmail} style={{backgroundColor: 'black', color: 'white', padding: '6px 40px', borderRadius: '20px', fontStyle: 'italic'}} >
+                                                {
+                                                    sendingEmail
+                                                    ? <Spinner size='lg' spinning='fa-spin' />
+                                                    : "DIVE IN"
+                                                }
+                                            </button>
+                                        </div>
+                                    </form>
+                                    <div className="footer">
+                                        <p className="termsApply">Terms & Conditions Apply.</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="form-group text-center">
-                                <label htmlFor="uploadprofile"><FontAwesomeIcon icon={faCamera} size="2x" style={{position:'relative', top: '-70px', left: '70px', color: 'black'}} /></label>
-                                <input type="file" onChange={this.getFileInfo} id="uploadprofile" className="form-control" style={{display: "none"}}  />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="username">Username</label>
-                                <input type="text" name="username" value={this.state.uname} onChange={this.handleUsernameChange} className="form-control" required style={{borderRadius: '20px'}} />
-                            </div>
-                            <div className="form-group text-center">
-                                <button type="submit" className="btn" disabled={sendingEmail} style={{backgroundColor: 'black', color: 'white', padding: '6px 40px', borderRadius: '20px', fontStyle: 'italic'}} >
-                                    {
-                                        sendingEmail
-                                        ? <Spinner size='lg' spinning='fa-spin' />
-                                        : "DIVE IN"
-                                    }
-                                </button>
-                            </div>
-                        </form>
-                        <div className="footer">
-                            <p className="termsApply">Terms & Conditions Apply.</p>
                         </div>
-                    </div>
-                </div>
+                    )
+                }
             </div>
         );
     }
