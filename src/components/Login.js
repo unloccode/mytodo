@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 export default class Login extends React.Component{
     constructor(props){
         super(props);
-        this.state = {email: '', password: '', isRevealPass: false, currentUser: AuthService.getCurrentUser()};
+        this.state = {email: '', password: '', isRevealPass: false, currentUser: AuthService.getCurrentUser(), errorMessage: ''};
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.togglePasswordHide = this.togglePasswordHide.bind(this);
@@ -69,6 +69,8 @@ export default class Login extends React.Component{
             const resMessage = (error.response && error.response.data && error.response.data.message) ||
             error.message || error.toString();
             console.log(resMessage);
+            notify.show(resMessage);
+            this.setState({errorMessage: resMessage});
         }
         );
     }
@@ -108,6 +110,11 @@ export default class Login extends React.Component{
                                                 onClick={this.togglePasswordHide}
                                                 alt="eye"
                                             />
+                                            {
+                                                this.state.errorMessage
+                                                ? <span style={{color: 'red'}} >{this.state.errorMessage}</span>
+                                                : <span></span>
+                                            }
                                         </div>
                                         <div className="form-group text-center">
                                             <button className="btn" style={{backgroundColor: 'black', color: 'white', borderRadius: '20px', fontSize:'14px', padding: '6px 40px', fontStyle: 'italic'}}>Login</button>

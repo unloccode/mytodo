@@ -66,45 +66,43 @@ class Register extends React.Component{
                 //validate password
                 //check if password matches
                 if(this.state.password === this.state.confirmPassword){
-                    this.setState({passwordMatch: 'YES! Password Matches'});
-                }else{
-                    this.setState({passwordMatch: 'Password DO NOT match! '});
-                }
-                if(validator.isStrongPassword(this.state.password, {
-                    minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1
-                })){
-                    this.setState({errorMessage: 'Is Strong Password'})
-                    //save data
-
-                    //bind data as json
-                    const user = {
-                        email: this.state.email,
-                        password: this.state.password
-                    };
-                    ////send data to the server
-                    axios.post("http://localhost:8080/api/auth/signup", user)
-                    .then(res=>{
-                        console.log(res.data.message);
-                        notify.show(res.data.message);
-                        //load next page
-                        this.props.history.push('/updateprofile');
-                    }).catch(error=>{
-                        if(error.response){
-                            //client received an error response (5xx, 4xx)
-                            console.log(error.response.data.message);
-                            notify.show(error.response.data.message);
-                            //set email in use to true
-                            this.setState({emailInUse: true});
-                        }else if(error.request){
-                            //client never received a response, or request never left
-                            console.log(error.request);
-                        }else{
-                            //anything else
+                    this.setState({passwordMatch: ''});
+                    //check if password meets the requirements
+                    //minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1
+                    if(validator.isStrongPassword(this.state.password, {minLength: 8, minLowercase: 0, minUppercase: 0, minNumbers: 0, minSymbols: 0})){
+                        this.setState({errorMessage: ''});
+                        //send data to backed
+                        //bind data as json
+                        const user = {
+                            email: this.state.email,
+                            password: this.state.password
                         }
-                    });   
-                    
-                }else{
+                        //send data to the backend server
+                        axios.post("http://localhost:8080/api/auth/signup", user)
+                        .then(res=>{
+                            console.log(res.data.message);
+                            notify.show(res.data.message);
+                            //load next page
+                            this.props.history.push("/updateprofile");
+                        }).catch(error=>{
+                            if(error.response){
+                                //client received an errir response (5xx, 4xx)
+                                console.log(error.response.data.message);
+                                notify.show(error.response.data.message);
+                                //set email in use to true
+                                this.setState({emailInUse: true});
+                            }else if(error.request){
+                                //client never received a response or request never left
+                                console.log(error.request);
+                            }else{
+                                //anything else
+                            }
+                        })
+                    }else{
                     this.setState({errorMessage: 'Weak Password'})
+                    }
+                }else{
+                    this.setState({passwordMatch: 'Password do NOT match!'});
                 }     
             }else{
                 this.setState({emailError: false});
