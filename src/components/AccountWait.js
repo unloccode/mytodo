@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../App.css';
 import mytodoLogo from '../respictures/mytodologo.png';
 import AuthService from '../services/auth.service';
@@ -35,7 +36,9 @@ export default class AccountWait extends React.Component{
                                         <div className="card-header text-center text-white pt-4" style={{backgroundColor: 'black', height: '70px'}} >ACCOUNT ACTIVATION REQUIRED</div>
                                         <div className="card-body text-center mt-5 pt-4">
                                             <p style={{fontSize: '14px'}} >Account confirmation link has been sent to your email, check your inbox. Click the <br/> link to activate your account.</p>
-                                            <button className="btn text-white mt-5 mb-4" style={{backgroundColor: 'black', borderRadius: '20px', padding: '6px 40px', fontStyle: 'italic', fontSize: '16px', fontWeight: 'bold'}} >OPEN MAILBOX</button>
+                                            <Link to={{pathname: "https://gmail.com"}} target="_blank">
+                                                <button className="btn text-white mt-5 mb-4" style={{backgroundColor: 'black', borderRadius: '20px', padding: '6px 40px', fontStyle: 'italic', fontSize: '16px', fontWeight: 'bold'}} >OPEN MAILBOX</button>
+                                            </Link>
                                         </div>
                                     </div>
                                     <div className="footer">
