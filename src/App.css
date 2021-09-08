@@ -92,6 +92,24 @@
   margin-left: 45%;
 }
 
+.mobileTC{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: lighter;
+  font-size: 10px;
+  position: relative;
+  bottom: -50px;
+  margin-left: 30%;
+}
+
+.mobileTCpro{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: lighter;
+  font-size: 10px;
+  position: absolute;
+  bottom: 20px;
+  margin-left: 30%;
+}
+
 .pwd-container{
   position: relative;
 }

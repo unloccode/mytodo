@@ -15,7 +15,7 @@ import AuthService from '../services/auth.service';
 class UpdateProfile extends React.Component{
     constructor(props){
         super(props);
-        this.state = {imagepreview: '', name: '', username: '', currentUser: AuthService.getCurrentUser()};
+        this.state = {imagepreview: '', name: '', username: '', currentUser: AuthService.getCurrentUser(), windowWidth: undefined};
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.getFileInfo = this.getFileInfo.bind(this);
@@ -24,6 +24,8 @@ class UpdateProfile extends React.Component{
     state = {
         sendingEmail: false
     };
+    //resize window
+    handleResize = () => this.setState({windowWidth: window.innerWidth});
     //definitions
     handleUsernameChange(e){
         this.setState({username: e.target.value});
@@ -42,11 +44,18 @@ class UpdateProfile extends React.Component{
     }
     //auth
     componentDidMount(){
+        //window resize
+        this.handleResize();
+        window.addEventListener('resize', this.handleResize);
+        //auth
         const user = AuthService.getCurrentUser();
         if(user){
             console.log(user);
             this.setState({currentUser: user});
         }
+    }
+    componentWillUnmount(){
+        window.removeEventListener('resize', this.handleResize);
     }
     handleSubmit(e){
         e.preventDefault();
@@ -83,46 +92,94 @@ class UpdateProfile extends React.Component{
                     currentUser ? (
                         this.props.history.push("/homer")
                     ) : (
-                        <div className="container-fluid">
-                            <div className="row">
-                                <div className="col-sm-9 mainbg position-absolute h-100">
-                                    <h4 style={{fontSize:'14px', fontWeight:'bolder'}} className="mt-3">MYTODO</h4>
-                                    <img src={mytodoLogo} alt="MYTODO" height="100" style={{position:'absolute', top:'50%', left: '50%', transform: 'translate(-50%, -50%'}} />
-                                </div>
-                                <div className="col-sm-3 offset-sm-9 position-absolute h-100">
-                                    <h3 className="text-center mt-4 pb-4 font16">Update your profile</h3>
-                                    <form onSubmit={this.handleSubmit}>
-                                    <p className="mt-3">Profile picture</p>
-                                        <div className="form-group text-center">
-                                            {
-                                                this.state.imagepreview
-                                                ? <img src={this.state.imagepreview} alt="" className="uiprofile" />
-                                                : <img src={x} alt="" className="uiprofile"/>
-                                            }
+                        <div>
+                            {
+                                this.state.windowWidth >= 885 ? (
+                                    <div className="container-fluid">
+                                        <div className="row">
+                                            <div className="col-sm-9 mainbg position-absolute h-100">
+                                                <h4 style={{fontSize:'14px', fontWeight:'bolder'}} className="mt-3">MYTODO</h4>
+                                                <img src={mytodoLogo} alt="MYTODO" height="100" style={{position:'absolute', top:'50%', left: '50%', transform: 'translate(-50%, -50%'}} />
+                                            </div>
+                                            <div className="col-sm-3 offset-sm-9 position-absolute h-100">
+                                                <h3 className="text-center mt-4 pb-4 font16">Update your profile</h3>
+                                                <form onSubmit={this.handleSubmit}>
+                                                <p className="mt-3">Profile picture</p>
+                                                    <div className="form-group text-center">
+                                                        {
+                                                            this.state.imagepreview
+                                                            ? <img src={this.state.imagepreview} alt="" className="uiprofile" />
+                                                            : <img src={x} alt="" className="uiprofile"/>
+                                                        }
+                                                    </div>
+                                                    <div className="form-group text-center">
+                                                        <label htmlFor="uploadprofile"><FontAwesomeIcon icon={faCamera} size="2x" style={{position:'relative', top: '-70px', left: '70px', color: 'black'}} /></label>
+                                                        <input type="file" onChange={this.getFileInfo} id="uploadprofile" className="form-control" style={{display: "none"}}  />
+                                                    </div>
+                                                    <div className="form-group">
+                                                        <label htmlFor="username">Username</label>
+                                                        <input type="text" name="username" value={this.state.uname} onChange={this.handleUsernameChange} className="form-control" required style={{borderRadius: '20px'}} />
+                                                    </div>
+                                                    <div className="form-group text-center">
+                                                        <button type="submit" className="btn" disabled={sendingEmail} style={{backgroundColor: 'black', color: 'white', padding: '6px 40px', borderRadius: '20px', fontStyle: 'italic'}} >
+                                                            {
+                                                                sendingEmail
+                                                                ? <Spinner size='lg' spinning='fa-spin' />
+                                                                : "DIVE IN"
+                                                            }
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                                <div className="footer">
+                                                    <p className="termsApply">Terms & Conditions Apply.</p>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className="form-group text-center">
-                                            <label htmlFor="uploadprofile"><FontAwesomeIcon icon={faCamera} size="2x" style={{position:'relative', top: '-70px', left: '70px', color: 'black'}} /></label>
-                                            <input type="file" onChange={this.getFileInfo} id="uploadprofile" className="form-control" style={{display: "none"}}  />
-                                        </div>
-                                        <div className="form-group">
-                                            <label htmlFor="username">Username</label>
-                                            <input type="text" name="username" value={this.state.uname} onChange={this.handleUsernameChange} className="form-control" required style={{borderRadius: '20px'}} />
-                                        </div>
-                                        <div className="form-group text-center">
-                                            <button type="submit" className="btn" disabled={sendingEmail} style={{backgroundColor: 'black', color: 'white', padding: '6px 40px', borderRadius: '20px', fontStyle: 'italic'}} >
-                                                {
-                                                    sendingEmail
-                                                    ? <Spinner size='lg' spinning='fa-spin' />
-                                                    : "DIVE IN"
-                                                }
-                                            </button>
-                                        </div>
-                                    </form>
-                                    <div className="footer">
-                                        <p className="termsApply">Terms & Conditions Apply.</p>
                                     </div>
-                                </div>
-                            </div>
+                                ) : (
+                                    <div className="container-fluid">
+                                        <div className="row">
+                                            <div className="section col-sm-12 position-absolute h-100">
+                                                <div className="text-center mt-4 pt-4 pb-4">
+                                                    <h4 style={{fontSize: '18px'}} >Update profile</h4>
+                                                </div>
+                                                <div className="mx-auto w-75">
+                                                    <form onSubmit={this.handleSubmit}>
+                                                        <p className="mt-4">Profile picture</p>
+                                                        <div className="form-group text-center">
+                                                            {
+                                                                this.state.imagepreview
+                                                                ? <img src={this.state.imagepreview} alt="" className="uiprofile" />
+                                                                : <img src={x} alt="" className="uiprofile" />
+                                                            }
+                                                        </div>
+                                                        <div className="form-group text-center">
+                                                            <label htmlFor="uploadprofile"><FontAwesomeIcon icon={faCamera} size="2x" style={{position:'relative', top: '-70px', left: '70px', color: 'black'}} /></label>
+                                                            <input type="file" onChange={this.getFileInfo} id="uploadprofile" className="form-control" style={{display: "none"}}  />
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label htmlFor="username">Username</label>
+                                                            <input type="text" value={this.state.uname} onChange={this.handleUsernameChange} className="form-control" style={{borderRadius: '20px'}} required />
+                                                        </div>
+                                                        <div className="form-group text-center">
+                                                            <button className="btn" style={{color: 'white', backgroundColor: 'black', padding: '6px 25px', borderRadius: '20px', fontStyle: 'italic', fontWeight: 'bold', fontSize: '16px'}} >
+                                                                {
+                                                                    sendingEmail
+                                                                    ? <Spinner size='lg' spinning='fa-spin' />
+                                                                    : "DIVE IN"
+                                                                }
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div className="footer">
+                                                    <p className="mobileTC">Terms & Conditions Apply.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            }
                         </div>
                     )
                 }
