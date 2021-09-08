@@ -7,10 +7,13 @@ import AuthService from '../services/auth.service';
 class MakePasswordChanges extends React.Component{
     constructor(props){
         super(props);
-        this.state = {password: '', confirmPassword: '', passwordIsSimilar: true, currentUser: AuthService.getCurrentUser()}
+        this.state = {password: '', confirmPassword: '', passwordIsSimilar: true, currentUser: AuthService.getCurrentUser(), windowWidth: undefined}
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    handleResize = () => {
+        this.setState({windowWidth: window.innerWidth});
     }
     handlePasswordChange(e){
         this.setState({password: e.target.value});
@@ -20,11 +23,18 @@ class MakePasswordChanges extends React.Component{
     }
     //auth
     componentDidMount(){
+        //resize window
+        this.handleResize();
+        window.addEventListener('resize', this.handleResize);
+        //auth
         const user = AuthService.getCurrentUser();
         if(user){
             console.log(user);
             this.setState({currentUser: user});
         }
+    }
+    componentWillUnmount(){
+        window.removeEventListener('resize', this.handleResize);
     }
     handleSubmit(e){
         e.preventDefault();
@@ -66,41 +76,84 @@ class MakePasswordChanges extends React.Component{
                     currentUser ? (
                         this.props.history.push("/homer")
                     ) : (
-                        <div className="container-fluid">
-                            <div className="row">
-                                <nav className="col-sm-12 navbar mainbg">
-                                    <div className="navbar-brand">
-                                        <img src={mytodoLogo} alt="MYTODO" height="30px" />
-                                    </div>
-                                </nav>
-                                <div className="col-sm-12 position-absolute h-100">
-                                    <div className="card reset-container position-relative w-50 boxshado">
-                                        <div className="card-body">
-                                            <form onSubmit={this.handleSubmit}>
-                                                <div className="form-group">
-                                                    <label htmlFor="password" >New password</label>
-                                                    <input type="text" value={this.state.password} onChange={this.handlePasswordChange} className="form-control" />
+                        <div>
+                            {
+                                this.state.windowWidth >= 885 ? (
+                                    <div className="container-fluid">
+                                        <div className="row">
+                                            <nav className="col-sm-12 navbar mainbg">
+                                                <div className="navbar-brand">
+                                                    <img src={mytodoLogo} alt="MYTODO" height="30px" />
                                                 </div>
-                                                <div className="form-group">
-                                                    <label htmlFor="confirm_password" >Confirm password</label>
-                                                    <input type="text" value={this.state.confirmPassword} onChange={this.handleConfirmPasswordChange}  className="form-control"/>
-                                                    {
-                                                        this.state.passwordIsSimilar
-                                                        ? <span></span>
-                                                        : <span style={{color: 'red'}} >Password don't match!</span>
-                                                    }
+                                            </nav>
+                                            <div className="col-sm-12 position-absolute h-100">
+                                                <div className="card reset-container position-relative w-50 boxshado">
+                                                    <div className="card-body">
+                                                        <form onSubmit={this.handleSubmit}>
+                                                            <div className="form-group">
+                                                                <label htmlFor="password" >New password</label>
+                                                                <input type="text" value={this.state.password} onChange={this.handlePasswordChange} className="form-control" />
+                                                            </div>
+                                                            <div className="form-group">
+                                                                <label htmlFor="confirm_password" >Confirm password</label>
+                                                                <input type="text" value={this.state.confirmPassword} onChange={this.handleConfirmPasswordChange}  className="form-control"/>
+                                                                {
+                                                                    this.state.passwordIsSimilar
+                                                                    ? <span></span>
+                                                                    : <span style={{color: 'red'}} >Password don't match!</span>
+                                                                }
+                                                            </div>
+                                                            <div className="form-group">
+                                                                <button className="btn" style={{color: 'white', backgroundColor: 'black', fontStyle: 'italic', fontSize: '16px', borderRadius: '20px', padding: '6px 40px'}} >UPDATE PASSWORD</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
                                                 </div>
-                                                <div className="form-group">
-                                                    <button className="btn" style={{color: 'white', backgroundColor: 'black', fontStyle: 'italic', fontSize: '16px', borderRadius: '20px', padding: '6px 40px'}} >UPDATE PASSWORD</button>
+                                                <div className="footer">
+                                                        <p className="termsApplypro">Terms & Conditions Apply.</p>
                                                 </div>
-                                            </form>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className="footer">
-                                            <p className="termsApplypro">Terms & Conditions Apply.</p>
+                                ) : (
+                                    <div className="container-fluid">
+                                        <div className="row">
+                                            <nav className="col-sm-12 navbar mainbg">
+                                                <div className="navbar-brand">
+                                                    <img src={mytodoLogo} alt="MYTODO" height="30px" />
+                                                </div>
+                                            </nav>
+                                            <div className="section col-sm-12 position-absolute h-100">
+                                                <div className="card position relative reset-container boxshado">
+                                                    <div className="card-body">
+                                                        <form onSubmit={this.handleSubmit}>
+                                                            <div className="form-group">
+                                                                <label htmlFor="password" >New password</label>
+                                                                <input type="text" value={this.state.password} onChange={this.handlePasswordChange} className="form-control" />
+                                                            </div>
+                                                            <div className="form-group">
+                                                                <label htmlFor="confirm_password" >Confirm password</label>
+                                                                <input type="text" value={this.state.confirmPassword} onChange={this.handleConfirmPasswordChange}  className="form-control"/>
+                                                                {
+                                                                    this.state.passwordIsSimilar
+                                                                    ? <span></span>
+                                                                    : <span style={{color: 'red'}} >Password don't match!</span>
+                                                                }
+                                                            </div>
+                                                            <div className="form-group text-center">
+                                                                <button className="btn" style={{color: 'white', backgroundColor: 'black', fontStyle: 'italic', fontSize: '16px', borderRadius: '20px', padding: '6px 40px'}} >UPDATE PASSWORD</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <div className="footer">
+                                                    <p className="mobileTCpro">Terms & Conditions Apply.</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
+                                )
+                            }
                         </div>
                     )
                 }
