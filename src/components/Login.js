@@ -151,26 +151,34 @@ export default class Login extends React.Component{
                                                     <h4 style={{fontSize: '18px'}} >Login</h4>
                                                 </div>
                                                 <div className="mx-auto w-75">
-                                                    <form>
+                                                    <form onSubmit={this.handleSubmit}>
                                                         <div className="form-group">
                                                             <label htmlFor="email" >Email</label>
-                                                            <input type="text" className="form-control" style={{borderRadius: '20px'}} placeholder="johndoe@email.com" required />
+                                                            <input type="text" className="form-control" value={this.state.email} onChange={this.handleEmailChange} style={{borderRadius: '20px'}} placeholder="johndoe@email.com" required />
                                                         </div>
                                                         <div className="form-group pwd-container">
                                                             <label htmlFor="password">Password</label>
-                                                            <input type={this.state.isRevealPass ? "text" : "password"} className="form-control" style={{borderRadius: '20px'}} required />
+                                                            <input type={this.state.isRevealPass ? "text" : "password"} className="form-control" value={this.state.password} onChange={this.handlePasswordChange} style={{borderRadius: '20px'}} required />
                                                             <img
                                                                 title={this.state.isRevealPass ? "Hide password" : "Show password"}
                                                                 src={this.state.isRevealPass ? showPass : hidePass}
                                                                 onClick={this.togglePasswordHide}
                                                                 alt="eye"
                                                             />
+                                                            {
+                                                                this.state.errorMessage
+                                                                ? <span style={{color: 'red'}} >{this.state.errorMessage}</span>
+                                                                : <span></span>
+                                                            }
                                                         </div>
                                                         <div className="form-group text-center">
                                                             <button className="btn" style={{color: 'white', backgroundColor: 'black', fontSize: '16', fontStyle: 'italic', padding: '6px 25px', borderRadius: '20px'}} >SIGN IN</button>
                                                         </div>
                                                     </form>
                                                     <p style={{fontStyle: 'italic', fontSize: '12px'}}  className="text-center">Already have an account? <Link to="/"><span className="text-primary">Sign Up</span></Link></p>
+                                                    <p className="mt-3 text-center">
+                                                            <Link to="/resetpassword"><button style={{fontSize: '12px', fontStyle: 'italic', backgroundColor: 'transparent', border: 'none'}}  className="btn">Forgot password?</button></Link>
+                                                    </p>
                                                 </div>
                                                 <div className="footer">
                                                     <p className="mobileTC">Terms & Conditions Apply.</p>
