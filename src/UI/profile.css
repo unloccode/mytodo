@@ -5,3 +5,11 @@
     border-radius: 50%;
     border: 2px solid gainsboro;
 }
+
+.meprofile{
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 2px solid gainsboro;
+}

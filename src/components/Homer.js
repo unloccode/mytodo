@@ -1,6 +1,15 @@
 import React from 'react';
 import AuthService from '../services/auth.service';
 import mytodoLogo from '../respictures/mytodologo.png';
+import profileAvatar from '../respictures/userprofile.png';
+import Mepopup from 'reactjs-popup';
+import '../UI/profile.css';
+import { Link } from 'react-router-dom';
+import DateTodotracker from './dateTodotracker';
+import DayTab from './DayTab';
+import AddTodoButton from './AddTodoButton';
+import TodoButtonTracker from './TodoButtonTracker';
+import TodoRenderer from './TodoRenderer';
 
 export default class Homer extends React.Component{
     constructor(props){
@@ -32,29 +41,31 @@ export default class Homer extends React.Component{
                                     </div>
                                     <ul className="navbar-nav">
                                         <li className="nav-item">
-                                            <a className="nav-link text-white" href="/login" onClick={this.Logout}>Logout</a>
+                                            <Mepopup trigger={<img src={profileAvatar} alt="User" height="30" style={{cursor: 'pointer'}} />} position="bottom right" arrow={false}>
+                                                <div className="card mt-2 text-center" style={{width: '400px'}}>
+                                                    <div className="card-body">
+                                                        <img src={profileAvatar} alt="profile" className="meprofile" />
+                                                        <h4>George Limo</h4>
+                                                        <Link to='/login'>
+                                                            <button onClick={this.Logout}>Logout</button>
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                            </Mepopup>
                                         </li>
                                     </ul>
                                 </nav>
-                                <div className="col-sm-12">
-                                    <header className="jumbotron">
-                                        <h3>
-                                            <strong>{currentUser.email}</strong>
-                                        </h3>
-                                    </header>
-                                    <p>
-                                        <strong>Token:</strong>{" "}
-                                        {currentUser.accessToken.substring(0, 20)} ...{" "}
-                                        {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
-                                    </p>
-                                    <p>
-                                        <strong>Id:</strong>{" "}
-                                        {currentUser.id}
-                                    </p>
-                                    <p>
-                                        <strong>Email: </strong>
-                                        {currentUser.email}
-                                    </p>
+                                <DateTodotracker/>
+                                <DayTab/>
+                                <AddTodoButton/>
+                                <TodoButtonTracker/>
+                                <TodoRenderer/>
+                                <div className="container">
+                                    <div className="row">
+                                        <div className="col-sm-12 mt-4">
+                                            <div className="text-center mt-4 pt-4" style={{fontFamily: 'sans-serif', fontSize: '12px'}}>Developed by Unloccode<span className="mr-4"></span>Powered by React + Express + Node + MySQL</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
