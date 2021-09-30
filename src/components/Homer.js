@@ -11,11 +11,15 @@ import AddTodoButton from './AddTodoButton';
 import TodoButtonTracker from './TodoButtonTracker';
 import TodoRenderer from './TodoRenderer';
 
+//data store
+const DB = [{tskHead: '', tksBody: ''}];
+
 export default class Homer extends React.Component{
     constructor(props){
         super(props);
-        this.state = {currentUser: AuthService.getCurrentUser()};
+        this.state = {currentUser: AuthService.getCurrentUser(), task: DB.length-1};
         this.Logout = this.Logout.bind(this);
+        this.receiveDataFromInput = this.receiveDataFromInput.bind(this);
     }
     componentDidMount(){
         const user = AuthService.getCurrentUser();
@@ -26,6 +30,13 @@ export default class Homer extends React.Component{
     }
     Logout(){
         AuthService.logout();
+    }
+    receiveDataFromInput(x){
+        //some code to receive data
+        //titleTask
+        //describeTask
+        console.log(x[0].taskHead);
+        console.log(x[0].taskBody);
     }
     render(){
         const {currentUser} = this.state;
@@ -55,9 +66,9 @@ export default class Homer extends React.Component{
                                         </li>
                                     </ul>
                                 </nav>
-                                <DateTodotracker/>
+                                <DateTodotracker task={this.state.task}/>
                                 <DayTab/>
-                                <AddTodoButton/>
+                                <AddTodoButton handleSubmits={this.receiveDataFromInput}/>
                                 <TodoButtonTracker/>
                                 <TodoRenderer/>
                                 <div className="container">

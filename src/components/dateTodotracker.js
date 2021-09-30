@@ -1,10 +1,6 @@
 import React from 'react';
 
 class DateTodotracker extends React.Component{
-    constructor(props){
-        super();
-        this.state = {task: 5};
-    }
     render(){
         return(
             <div className="container mt-3">
@@ -18,7 +14,7 @@ class DateTodotracker extends React.Component{
                                     <th>09</th>
                                 </tr>
                             </table>
-                            <div class="float-right" style={{backgroundColor:'black', padding: '9px 25px', color: 'white', borderRadius: '10px', fontSize: '16px', fontWeight: 'bold'}}>{this.state.task} Todos</div>
+                            <div class="float-right" style={{backgroundColor:'black', padding: '9px 25px', color: 'white', borderRadius: '10px', fontSize: '16px', fontWeight: 'bold'}}>{this.props.task} Todos</div>
                         </div>
                     </div>
                 </div>

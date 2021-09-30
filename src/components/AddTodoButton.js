@@ -22,9 +22,11 @@ const customStyles = {
 export default class AddTodoButton extends React.Component{
     constructor(){
         super();
-        this.state = {showModal: false};
+        this.state = {showModal: false, titleTask: '', describeTask: ''};
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
+        this.handletaskTitle = this.handletaskTitle.bind(this);
+        this.handledescribeTask = this.handledescribeTask.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     handleOpenModal(){
@@ -32,13 +34,31 @@ export default class AddTodoButton extends React.Component{
     }
     handleCloseModal(){
         //this.setState({showModal: false})
-        console.log('Hello World!');
+        //console.log('Hello World!');
         alert('Are you sure?');
         //console.log('1');
         this.setState({showModal: false})
     }
+    handletaskTitle(e){
+        //some awesome code
+        this.setState({titleTask: e.target.value});
+    }
+    handledescribeTask(e){
+        //some awesome code
+        this.setState({describeTask: e.target.value});
+    }
     handleSubmit(e){
         e.preventDefault();
+        console.log(this.state.titleTask);
+        console.log(this.state.describeTask);
+        //reset fields
+        //this.setState({titleTask: ''});
+        //this.setState({describeTask: ''});
+        //send back data to homer db
+        //this.props.handleSubmits(this.state.titleTask);
+        //combine data
+        const combinedData = [{taskHead: this.state.titleTask, taskBody: this.state.describeTask}];
+        this.props.handleSubmits(combinedData);
     }
     render(){
         return(
@@ -59,11 +79,11 @@ export default class AddTodoButton extends React.Component{
                                     <form onSubmit={this.handleSubmit}>
                                         <div className="form-group">
                                             <label htmlFor="tasktitle">Task label</label>
-                                            <input className="form-control"/>
+                                            <input className="form-control" type="text" value={this.state.titleTask} onChange={this.handletaskTitle} />
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="taskdescription">Description</label>
-                                            <textarea className="form-control" id="commnet" name="text" rows="5"></textarea>
+                                            <textarea className="form-control" id="commnet" name="text" rows="5" type="text" value={this.state.describeTask} onChange={this.handledescribeTask}></textarea>
                                         </div>
                                         <button className="btn btn-success">Add task</button>
                                     </form>
