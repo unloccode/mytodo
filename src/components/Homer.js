@@ -17,7 +17,7 @@ const DB = [{tskHead: '', tksBody: ''}];
 export default class Homer extends React.Component{
     constructor(props){
         super(props);
-        this.state = {currentUser: AuthService.getCurrentUser(), task: DB.length-1};
+        this.state = {currentUser: AuthService.getCurrentUser(), task: DB.length-1, dataStore: DB};
         this.Logout = this.Logout.bind(this);
         this.receiveDataFromInput = this.receiveDataFromInput.bind(this);
     }
@@ -37,6 +37,9 @@ export default class Homer extends React.Component{
         //describeTask
         console.log(x[0].taskHead);
         console.log(x[0].taskBody);
+        //add data to array
+        this.setState({dataStore: [...this.state.dataStore, x]});
+        console.log(this.state.dataStore);
     }
     render(){
         const {currentUser} = this.state;
