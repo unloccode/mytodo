@@ -8,6 +8,7 @@ import ReactModal from 'react-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
+
 const customStyles = {
     content: {
         top: '50%',
@@ -59,6 +60,9 @@ export default class AddTodoButton extends React.Component{
         //combine data
         const combinedData = [{taskHead: this.state.titleTask, taskBody: this.state.describeTask}];
         this.props.handleSubmits(combinedData);
+        //reset fields
+        this.setState({titleTask: ''});
+        this.setState({describeTask: ''});
     }
     render(){
         return(
@@ -68,7 +72,7 @@ export default class AddTodoButton extends React.Component{
                         <div className="text-center">
                             <button className="btn" onClick={this.handleOpenModal} style={{backgroundColor: 'white', borderRadius: '20px', border: '2px solid black', padding: '6px 40px'}}><FontAwesomeIcon icon={faPlusCircle} size="1x" /><span style={{marginLeft: '15px', fontWeight: 'bold', fontFamily: 'sans-serif', fontSize: '18px'}}>Add Task</span></button>
                         </div>
-                        <ReactModal isOpen={this.state.showModal} contentLabel="Minimal Modal Example" style={customStyles}>
+                        <ReactModal isOpen={this.state.showModal} contentLabel="Minimal Modal Example" style={customStyles} appElement={document.getElementById('root')}>
                             <div className="clearfix">
                                 <div className="float-right">
                                     <button className="btn" style={{color: 'white', backgroundColor: 'red', fontFamily: 'sans-serif', fontSize: '12px', borderRadius: '10px', padding: '3px 15px'}} onClick={this.handleCloseModal}>close</button>

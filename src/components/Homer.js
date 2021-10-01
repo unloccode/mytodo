@@ -10,16 +10,17 @@ import DayTab from './DayTab';
 import AddTodoButton from './AddTodoButton';
 import TodoButtonTracker from './TodoButtonTracker';
 import TodoRenderer from './TodoRenderer';
+import Displayx from './Displayx';
 
-//data store
-const DB = [{tskHead: '', tksBody: ''}];
+
 
 export default class Homer extends React.Component{
     constructor(props){
         super(props);
-        this.state = {currentUser: AuthService.getCurrentUser(), task: DB.length-1, dataStore: DB};
+        this.state = {currentUser: AuthService.getCurrentUser(), task: this.props.tododatas.length, dataStore: this.props.tododatas};
         this.Logout = this.Logout.bind(this);
         this.receiveDataFromInput = this.receiveDataFromInput.bind(this);
+        this.handleResult = this.handleResult.bind(this);
     }
     componentDidMount(){
         const user = AuthService.getCurrentUser();
@@ -31,15 +32,22 @@ export default class Homer extends React.Component{
     Logout(){
         AuthService.logout();
     }
-    receiveDataFromInput(x){
+    receiveDataFromInput(receivedInputFromAddTodoButton){
         //some code to receive data
         //titleTask
         //describeTask
-        console.log(x[0].taskHead);
-        console.log(x[0].taskBody);
+        //console.log(receivedInputFromAddTodoButton[0].taskHead);
+        //console.log(receivedInputFromAddTodoButton[0].taskBody);
         //add data to array
-        this.setState({dataStore: [...this.state.dataStore, x]});
-        console.log(this.state.dataStore);
+        //this.setState([...this.state.dataStore, receivedInputFromAddTodoButton]);
+        //console.log(this.state.dataStore);
+        const newData = {tskHead: receivedInputFromAddTodoButton[0].taskHead, tksBody: receivedInputFromAddTodoButton[0].taskBody};
+        //console.log(newData);
+        this.setState({dataStore: [...this.state.dataStore, newData]});
+        this.setState({task: this.state.task+1});
+    }
+    handleResult(e){
+        console.log(this.state.dataStore.length);
     }
     render(){
         const {currentUser} = this.state;
@@ -71,9 +79,20 @@ export default class Homer extends React.Component{
                                 </nav>
                                 <DateTodotracker task={this.state.task}/>
                                 <DayTab/>
+                                <div className="container">
+                                    <div className="row">
+                                        <div className="col-sm-12">
+                                            <button className="btn btn-primary" onClick={this.handleResult}>Trigger</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <Displayx data={this.state.dataStore}/>
                                 <AddTodoButton handleSubmits={this.receiveDataFromInput}/>
                                 <TodoButtonTracker/>
-                                <TodoRenderer/>
+                                <TodoRenderer 
+                                    taskno={this.state.task}
+                                    tasks = {this.state.dataStore}
+                                />
                                 <div className="container">
                                     <div className="row">
                                         <div className="col-sm-12 mt-4">

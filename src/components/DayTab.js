@@ -6,12 +6,14 @@ export default class DayTab extends React.Component{
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-sm-12">
-                        <table class="table table-bordered mx-auto w-75 text-center">
-                            <tr>
-                                <th class="dt">YESTERDAY</th>
-                                <th class="dt">TODAY</th>
-                                <th class="dt">TOMMOROW</th>
-                            </tr>
+                        <table className="table table-bordered mx-auto w-75 text-center">
+                            <thead>
+                                <tr>
+                                    <th className="dt">YESTERDAY</th>
+                                    <th className="dt">TODAY</th>
+                                    <th className="dt">TOMMOROW</th>
+                                </tr>
+                            </thead>
                         </table>
                     </div>
                 </div>

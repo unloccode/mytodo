@@ -10,7 +10,7 @@ import ActivateAccount from './components/activateAccount';
 import AccountWait from './components/AccountWait';
 import Email from './tests/Email';
 import Login from './components/Login';
-import Homer from './components/Homer';
+import Starter from './components/Starter';
 import ResetPassword from './components/ResetPassword';
 //auths
 import MakePasswordChanges from './components/MakePasswordChanges';
@@ -29,7 +29,7 @@ class App extends React.Component{
             <Route exact path="/activate_account" component={AccountWait} />
             <Route exact path="/testemail" component={Email} />
             <Route exact path="/login" component={Login} />
-            <Route path="/homer" component={Homer} />
+            <Route path="/homer" component={Starter} />
             <Route path="/resetpassword" component={ResetPassword} />
             <Route exact path="/accountsettings/:id" component={MakePasswordChanges} />
             <Route path="/pwdsuccess" component={PasswordChangedSuccess} />
