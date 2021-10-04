@@ -10,7 +10,7 @@ import DayTab from './DayTab';
 import AddTodoButton from './AddTodoButton';
 import TodoButtonTracker from './TodoButtonTracker';
 import TodoRenderer from './TodoRenderer';
-import Displayx from './Displayx';
+import Updater from './Updater';
 
 
 
@@ -20,7 +20,6 @@ export default class Homer extends React.Component{
         this.state = {currentUser: AuthService.getCurrentUser(), task: this.props.tododatas.length, dataStore: this.props.tododatas};
         this.Logout = this.Logout.bind(this);
         this.receiveDataFromInput = this.receiveDataFromInput.bind(this);
-        this.handleResult = this.handleResult.bind(this);
     }
     componentDidMount(){
         const user = AuthService.getCurrentUser();
@@ -45,9 +44,6 @@ export default class Homer extends React.Component{
         //console.log(newData);
         this.setState({dataStore: [...this.state.dataStore, newData]});
         this.setState({task: this.state.task+1});
-    }
-    handleResult(e){
-        console.log(this.state.dataStore.length);
     }
     render(){
         const {currentUser} = this.state;
@@ -79,19 +75,14 @@ export default class Homer extends React.Component{
                                 </nav>
                                 <DateTodotracker task={this.state.task}/>
                                 <DayTab/>
-                                <div className="container">
-                                    <div className="row">
-                                        <div className="col-sm-12">
-                                            <button className="btn btn-primary" onClick={this.handleResult}>Trigger</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <Displayx data={this.state.dataStore}/>
                                 <AddTodoButton handleSubmits={this.receiveDataFromInput}/>
                                 <TodoButtonTracker/>
                                 <TodoRenderer 
-                                    taskno={this.state.task}
+                                    task={this.state.task}
                                     tasks = {this.state.dataStore}
+                                />
+                                <Updater
+                                    task = {this.state.task}
                                 />
                                 <div className="container">
                                     <div className="row">
