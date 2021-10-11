@@ -10,7 +10,6 @@ import DayTab from './DayTab';
 import AddTodoButton from './AddTodoButton';
 import TodoButtonTracker from './TodoButtonTracker';
 import TodoRenderer from './TodoRenderer';
-import Updater from './Updater';
 
 
 
@@ -80,9 +79,6 @@ export default class Homer extends React.Component{
                                 <TodoRenderer 
                                     task={this.state.task}
                                     tasks = {this.state.dataStore}
-                                />
-                                <Updater
-                                    task = {this.state.task}
                                 />
                                 <div className="container">
                                     <div className="row">

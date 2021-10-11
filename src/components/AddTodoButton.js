@@ -50,19 +50,21 @@ export default class AddTodoButton extends React.Component{
     }
     handleSubmit(e){
         e.preventDefault();
-        console.log(this.state.titleTask);
-        console.log(this.state.describeTask);
-        //reset fields
-        //this.setState({titleTask: ''});
-        //this.setState({describeTask: ''});
-        //send back data to homer db
-        //this.props.handleSubmits(this.state.titleTask);
-        //combine data
-        const combinedData = [{taskHead: this.state.titleTask, taskBody: this.state.describeTask}];
-        this.props.handleSubmits(combinedData);
-        //reset fields
-        this.setState({titleTask: ''});
-        this.setState({describeTask: ''});
+        if(this.state.titleTask && this.state.describeTask !== ''){
+            console.log(this.state.titleTask);
+            console.log(this.state.describeTask);
+            //reset fields
+            //this.setState({titleTask: ''});
+            //this.setState({describeTask: ''});
+            //send back data to homer db
+            //this.props.handleSubmits(this.state.titleTask);
+            //combine data
+            const combinedData = [{taskHead: this.state.titleTask, taskBody: this.state.describeTask}];
+            this.props.handleSubmits(combinedData);
+            //reset fields
+            this.setState({titleTask: ''});
+            this.setState({describeTask: ''});
+        }
     }
     render(){
         return(
