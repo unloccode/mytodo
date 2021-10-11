@@ -25,6 +25,7 @@ class RenderCard extends React.Component{
         this.handletaskTitle = this.handletaskTitle.bind(this);
         this.handledescribeTask = this.handledescribeTask.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleDeleteItem = this.handleDeleteItem.bind(this);
     }
     handleOpenModal(){
         this.setState({showModal: true});
@@ -57,9 +58,15 @@ class RenderCard extends React.Component{
     handleSubmit(e){
         e.preventDefault();
         if(this.state.taskH && this.state.taskB !== ''){
-            console.log(this.state.taskH);
-            console.log(this.state.taskB);
+            if(this.state.taskH === this.props.todo.tskHead && this.state.taskB === this.props.todo.tksBody){
+                alert('No changes made!')
+            }else{
+                //if fields submitted are not empty and tasks data not same as existing, data can be updated
+            }
         }
+    }
+    handleDeleteItem(e){
+        this.props.handleEditDeleteRoute(e.currentTarget.id);
     }
     render(){
         const todo = this.props.todo;
@@ -69,12 +76,12 @@ class RenderCard extends React.Component{
                     <div className="card-body" style={{boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px'}}>
                         <div className="row">
                             <div className="col-sm-1"><span className="badge badge-primary">{this.props.id}</span></div>
-                            <div className="col-sm-7" style={{cursor: 'pointer'}} id={this.props.id} onClick={this.handleOpenModal}>{todo.tskHead}</div>
+                            <div className="col-sm-7" style={{cursor: 'pointer'}} onClick={this.handleOpenModal}>{todo.tskHead}</div>
                             <div className="col-sm-2">
                                 <button className="btn" onClick={this.handleOpenModalEdit} style={{padding: '5px 35px', color: 'white', backgroundColor: 'green', borderRadius: '10px', fontSize: '12px', fontFamily: 'sans-serif'}}>Edit</button>
                             </div>
                             <div className="col-sm-2">
-                                <button className="btn" style={{padding: '5px 35px', color: 'white', backgroundColor: 'red', borderRadius: '10px', fontFamily: 'sans-serif', fontSize: '12px'}}>Delete</button>
+                                <button className="btn" id={this.props.id} onClick={this.handleDeleteItem} style={{padding: '5px 35px', color: 'white', backgroundColor: 'red', borderRadius: '10px', fontFamily: 'sans-serif', fontSize: '12px'}}>Delete</button>
                             </div>
                         </div>
                     </div>
@@ -135,9 +142,19 @@ export default class TodoRenderer extends React.Component{
         const rows = [];
         let id = 1;
         this.props.tasks.forEach((todo)=>{
-            rows.push(<RenderCard todo={todo} id={id} key={todo.tskHead}/>)
+            rows.push(<RenderCard todo={todo} id={id} key={todo.tskHead} handleEditDeleteRoute={this.props.handleEditDelete}/>)
             id=id+1;
         });
+        //array mods
+        //console.log('ARRAY');
+        //let months = [
+        //    {name: 'george', age: 25},
+        //    {name: 'colins', age: 16},
+        //    {name: 'brian', age: 23},
+        //];
+        //let days = months.splice(1, 1);
+        //console.log(days);
+        //console.log(months)
         return(
             <div className="container-fluid">
                 {

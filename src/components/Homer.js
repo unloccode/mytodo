@@ -19,6 +19,7 @@ export default class Homer extends React.Component{
         this.state = {currentUser: AuthService.getCurrentUser(), task: this.props.tododatas.length, dataStore: this.props.tododatas};
         this.Logout = this.Logout.bind(this);
         this.receiveDataFromInput = this.receiveDataFromInput.bind(this);
+        this.receiveDataFromModify = this.receiveDataFromModify.bind(this);
     }
     componentDidMount(){
         const user = AuthService.getCurrentUser();
@@ -39,10 +40,18 @@ export default class Homer extends React.Component{
         //add data to array
         //this.setState([...this.state.dataStore, receivedInputFromAddTodoButton]);
         //console.log(this.state.dataStore);
+        //console.log(receivedInputFromAddTodoButton)
         const newData = {tskHead: receivedInputFromAddTodoButton[0].taskHead, tksBody: receivedInputFromAddTodoButton[0].taskBody};
         //console.log(newData);
         this.setState({dataStore: [...this.state.dataStore, newData]});
         this.setState({task: this.state.task+1});
+    }
+    receiveDataFromModify(receivedEditDeleteData){
+        let indexing = receivedEditDeleteData - 1;
+        let db = this.state.dataStore;
+        db.splice(indexing, 1);
+        this.setState({dataStore: db});
+        this.setState({task: this.state.task-1})
     }
     render(){
         const {currentUser} = this.state;
@@ -79,6 +88,7 @@ export default class Homer extends React.Component{
                                 <TodoRenderer 
                                     task={this.state.task}
                                     tasks = {this.state.dataStore}
+                                    handleEditDelete = {this.receiveDataFromModify}
                                 />
                                 <div className="container">
                                     <div className="row">

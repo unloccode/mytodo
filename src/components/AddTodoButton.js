@@ -51,8 +51,8 @@ export default class AddTodoButton extends React.Component{
     handleSubmit(e){
         e.preventDefault();
         if(this.state.titleTask && this.state.describeTask !== ''){
-            console.log(this.state.titleTask);
-            console.log(this.state.describeTask);
+            //console.log(this.state.titleTask);
+            //console.log(this.state.describeTask);
             //reset fields
             //this.setState({titleTask: ''});
             //this.setState({describeTask: ''});
