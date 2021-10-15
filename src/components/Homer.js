@@ -20,6 +20,7 @@ export default class Homer extends React.Component{
         this.Logout = this.Logout.bind(this);
         this.receiveDataFromInput = this.receiveDataFromInput.bind(this);
         this.receiveDataFromModify = this.receiveDataFromModify.bind(this);
+        this.receiveDataFromUpdate = this.receiveDataFromUpdate.bind(this);
     }
     componentDidMount(){
         const user = AuthService.getCurrentUser();
@@ -35,14 +36,8 @@ export default class Homer extends React.Component{
         //some code to receive data
         //titleTask
         //describeTask
-        //console.log(receivedInputFromAddTodoButton[0].taskHead);
-        //console.log(receivedInputFromAddTodoButton[0].taskBody);
-        //add data to array
-        //this.setState([...this.state.dataStore, receivedInputFromAddTodoButton]);
-        //console.log(this.state.dataStore);
-        //console.log(receivedInputFromAddTodoButton)
         const newData = {tskHead: receivedInputFromAddTodoButton[0].taskHead, tksBody: receivedInputFromAddTodoButton[0].taskBody};
-        //console.log(newData);
+        //update state
         this.setState({dataStore: [...this.state.dataStore, newData]});
         this.setState({task: this.state.task+1});
     }
@@ -52,6 +47,18 @@ export default class Homer extends React.Component{
         db.splice(indexing, 1);
         this.setState({dataStore: db});
         this.setState({task: this.state.task-1})
+    }
+    receiveDataFromUpdate(receivedDatatobeUpdated){
+        const taskID = receivedDatatobeUpdated[0].taskNo;
+        const newData = {tskHead: receivedDatatobeUpdated[0].taskHead, tksBody: receivedDatatobeUpdated[0].taskBody};
+        //delete init data
+        let indexing = taskID - 1;
+        let db = this.state.dataStore;
+        db.splice(indexing, 1);
+        //add new data to array
+        db.splice(indexing, 0, newData);
+        //update state
+        this.setState({dataStore: db});
     }
     render(){
         const {currentUser} = this.state;
@@ -89,6 +96,7 @@ export default class Homer extends React.Component{
                                     task={this.state.task}
                                     tasks = {this.state.dataStore}
                                     handleEditDelete = {this.receiveDataFromModify}
+                                    handleUpdatedTodo = {this.receiveDataFromUpdate}
                                 />
                                 <div className="container">
                                     <div className="row">

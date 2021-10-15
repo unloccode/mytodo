@@ -16,7 +16,7 @@ const customStyles = {
 class RenderCard extends React.Component{
     constructor(props){
         super(props);
-        this.state = {showModal: false, taskH: '', taskB: '', showModalEdit: false};
+        this.state = {showModal: false, taskH: '', taskB: '', showModalEdit: false, taskID: null};
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
         this.handleEditButton = this.handleEditButton.bind(this);
@@ -29,7 +29,6 @@ class RenderCard extends React.Component{
     }
     handleOpenModal(){
         this.setState({showModal: true});
-        //console.log(e.currentTarget.id);
         this.setState({taskH: this.props.todo.tskHead});
         this.setState({taskB: this.props.todo.tksBody});
     }
@@ -40,10 +39,11 @@ class RenderCard extends React.Component{
         alert('Yeah');
         console.log(this.props.todo);
     }
-    handleOpenModalEdit(){
+    handleOpenModalEdit(e){
         this.setState({taskH: this.props.todo.tskHead});
         this.setState({taskB: this.props.todo.tksBody});
         this.setState({showModalEdit: true});
+        this.setState({taskID: e.currentTarget.id});
     }
     handleCloseModalEdit(){
         this.setState({showModalEdit: false});
@@ -62,6 +62,11 @@ class RenderCard extends React.Component{
                 alert('No changes made!')
             }else{
                 //if fields submitted are not empty and tasks data not same as existing, data can be updated
+                const combinedData = [
+                    {taskNo: this.state.taskID, taskHead: this.state.taskH, taskBody: this.state.taskB}
+                ];
+                //send combine data to origin
+                this.props.handleUpdatedTodoRoute(combinedData);
             }
         }
     }
@@ -78,7 +83,7 @@ class RenderCard extends React.Component{
                             <div className="col-sm-1"><span className="badge badge-primary">{this.props.id}</span></div>
                             <div className="col-sm-7" style={{cursor: 'pointer'}} onClick={this.handleOpenModal}>{todo.tskHead}</div>
                             <div className="col-sm-2">
-                                <button className="btn" onClick={this.handleOpenModalEdit} style={{padding: '5px 35px', color: 'white', backgroundColor: 'green', borderRadius: '10px', fontSize: '12px', fontFamily: 'sans-serif'}}>Edit</button>
+                                <button className="btn" id={this.props.id} onClick={this.handleOpenModalEdit} style={{padding: '5px 35px', color: 'white', backgroundColor: 'green', borderRadius: '10px', fontSize: '12px', fontFamily: 'sans-serif'}}>Edit</button>
                             </div>
                             <div className="col-sm-2">
                                 <button className="btn" id={this.props.id} onClick={this.handleDeleteItem} style={{padding: '5px 35px', color: 'white', backgroundColor: 'red', borderRadius: '10px', fontFamily: 'sans-serif', fontSize: '12px'}}>Delete</button>
@@ -142,7 +147,7 @@ export default class TodoRenderer extends React.Component{
         const rows = [];
         let id = 1;
         this.props.tasks.forEach((todo)=>{
-            rows.push(<RenderCard todo={todo} id={id} key={todo.tskHead} handleEditDeleteRoute={this.props.handleEditDelete}/>)
+            rows.push(<RenderCard todo={todo} id={id} key={todo.tskHead} handleEditDeleteRoute={this.props.handleEditDelete} handleUpdatedTodoRoute={this.props.handleUpdatedTodo}/>)
             id=id+1;
         });
         //array mods
@@ -152,7 +157,7 @@ export default class TodoRenderer extends React.Component{
         //    {name: 'colins', age: 16},
         //    {name: 'brian', age: 23},
         //];
-        //let days = months.splice(1, 1);
+        //let days = months.splice(0, 0, {name: 'cate', age: 24});
         //console.log(days);
         //console.log(months)
         return(
