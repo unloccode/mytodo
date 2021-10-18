@@ -10,17 +10,19 @@ import DayTab from './DayTab';
 import AddTodoButton from './AddTodoButton';
 import TodoButtonTracker from './TodoButtonTracker';
 import TodoRenderer from './TodoRenderer';
+import Kalenda from './Kalenda';
 
 
 
 export default class Homer extends React.Component{
     constructor(props){
         super(props);
-        this.state = {currentUser: AuthService.getCurrentUser(), task: this.props.tododatas.length, dataStore: this.props.tododatas};
+        this.state = {currentUser: AuthService.getCurrentUser(), task: this.props.tododatas.length, dataStore: this.props.tododatas, showDate: false};
         this.Logout = this.Logout.bind(this);
         this.receiveDataFromInput = this.receiveDataFromInput.bind(this);
         this.receiveDataFromModify = this.receiveDataFromModify.bind(this);
         this.receiveDataFromUpdate = this.receiveDataFromUpdate.bind(this);
+        this.handleDateTrackerChange = this.handleDateTrackerChange.bind(this);
     }
     componentDidMount(){
         const user = AuthService.getCurrentUser();
@@ -60,6 +62,14 @@ export default class Homer extends React.Component{
         //update state
         this.setState({dataStore: db});
     }
+    handleDateTrackerChange(){
+        if(this.state.showDate === true){
+            this.setState({showDate: false})
+        }
+        if(this.state.showDate === false){
+            this.setState({showDate: true})
+        }
+    }
     render(){
         const {currentUser} = this.state;
         return(
@@ -88,7 +98,11 @@ export default class Homer extends React.Component{
                                         </li>
                                     </ul>
                                 </nav>
-                                <DateTodotracker task={this.state.task}/>
+                                <DateTodotracker
+                                    task={this.state.task}
+                                    handleDateChange = {this.handleDateTrackerChange}
+                                />
+                                <Kalenda showDate = {this.state.showDate} />
                                 <DayTab/>
                                 <AddTodoButton handleSubmits={this.receiveDataFromInput}/>
                                 <TodoButtonTracker/>

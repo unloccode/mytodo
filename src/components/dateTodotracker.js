@@ -1,6 +1,13 @@
 import React from 'react';
 
 class DateTodotracker extends React.Component{
+    constructor(props){
+        super();
+        this.handleChange = this.handleChange.bind(this);
+    }
+    handleChange(){
+        this.props.handleDateChange();
+    }
     render(){
         return(
             <div className="container mt-3">
@@ -8,11 +15,11 @@ class DateTodotracker extends React.Component{
                     <div className="col-sm-12">
                         <div className="clearfix">
                             <table className="table table-bordered float-left w-25">
-                                <thead>
+                                <thead style={{cursor: 'pointer'}} onClick={this.handleChange}>
                                     <tr>
                                         <th>SEPTEMBER</th>
                                         <th>2021</th>
-                                        <th>09</th>
+                                        <th>9</th>
                                     </tr>
                                 </thead>
                             </table>
