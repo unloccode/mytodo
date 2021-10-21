@@ -17,17 +17,17 @@ import Kalenda from './Kalenda';
 export default class Homer extends React.Component{
     constructor(props){
         super(props);
-        this.state = {currentUser: AuthService.getCurrentUser(), task: this.props.tododatas.length, dataStore: this.props.tododatas, showDate: false, monthData: '', yearData: null, dateData: null, tarehe: new Date(), tnt: ''};
+        this.state = {currentUser: AuthService.getCurrentUser(), task: this.props.tododatas.length, dataStore: this.props.tododatas, showDate: false, monthData: '', yearData: null, dateData: null, tarehe: new Date(), toggleDayTab: false};
         this.Logout = this.Logout.bind(this);
         this.receiveDataFromInput = this.receiveDataFromInput.bind(this);
         this.receiveDataFromModify = this.receiveDataFromModify.bind(this);
         this.receiveDataFromUpdate = this.receiveDataFromUpdate.bind(this);
         this.handleDateTrackerChange = this.handleDateTrackerChange.bind(this);
         this.handleDateData = this.handleDateData.bind(this);
+        this.handleTareheFromDayTab = this.handleTareheFromDayTab.bind(this);
     }
     componentDidMount(){
         const user = AuthService.getCurrentUser();
-        //console.log(this.state.tarehe.getFullYear())
         if(user){
             console.log(user);
             this.setState({currentUser: user});
@@ -82,6 +82,17 @@ export default class Homer extends React.Component{
         this.setState({monthData: months[value.getMonth()]});
         this.setState({yearData: value.getFullYear()});
         this.setState({dateData: value.getDate()});
+        //check against current date
+        if(this.state.tarehe.getDate() !== value.getDate() && this.state.tarehe.getDate()-1 !== value.getDate() && this.state.tarehe.getDate()+1 !== value.getDate()){
+            this.setState({toggleDayTab: true});
+        }else{
+            this.setState({toggleDayTab: false});
+        }
+    }
+    handleTareheFromDayTab(month, year, date){
+        this.setState({monthData: month});
+        this.setState({yearData: year});
+        this.setState({dateData: date});
     }
     render(){
         const {currentUser} = this.state;
@@ -122,7 +133,13 @@ export default class Homer extends React.Component{
                                     showDate = {this.state.showDate}
                                     handleDateData = {this.handleDateData}
                                 />
-                                <DayTab/>
+                                <DayTab
+                                    toggleDayTab = {this.state.toggleDayTab}
+                                    handleTareheFromDayTab = {this.handleTareheFromDayTab}
+                                    month = {this.state.monthData}
+                                    year = {this.state.yearData}
+                                    date = {this.state.dateData}
+                                />
                                 <AddTodoButton handleSubmits={this.receiveDataFromInput}/>
                                 <TodoButtonTracker/>
                                 <TodoRenderer 

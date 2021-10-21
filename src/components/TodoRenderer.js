@@ -1,3 +1,5 @@
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 //import PreviewTab from './PreviewTab';
 import ReactModal from 'react-modal';
@@ -82,11 +84,11 @@ class RenderCard extends React.Component{
                         <div className="row">
                             <div className="col-sm-1"><span className="badge badge-primary">{this.props.id}</span></div>
                             <div className="col-sm-7" style={{cursor: 'pointer'}} onClick={this.handleOpenModal}>{todo.tskHead}</div>
-                            <div className="col-sm-2">
-                                <button className="btn" id={this.props.id} onClick={this.handleOpenModalEdit} style={{padding: '5px 35px', color: 'white', backgroundColor: 'green', borderRadius: '10px', fontSize: '12px', fontFamily: 'sans-serif'}}>Edit</button>
+                            <div className="col-sm-2"> 
+                                <button className="btn" id={this.props.id} onClick={this.handleOpenModalEdit}><FontAwesomeIcon icon={faEdit} size="1x" style={{color: 'black'}}/></button>
                             </div>
                             <div className="col-sm-2">
-                                <button className="btn" id={this.props.id} onClick={this.handleDeleteItem} style={{padding: '5px 35px', color: 'white', backgroundColor: 'red', borderRadius: '10px', fontFamily: 'sans-serif', fontSize: '12px'}}>Delete</button>
+                                <button className="btn" id={this.props.id} onClick={this.handleDeleteItem}><FontAwesomeIcon icon={faTrash} size="1x" style={{color: 'black'}} /></button>
                             </div>
                         </div>
                     </div>
