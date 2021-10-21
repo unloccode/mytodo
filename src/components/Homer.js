@@ -17,19 +17,26 @@ import Kalenda from './Kalenda';
 export default class Homer extends React.Component{
     constructor(props){
         super(props);
-        this.state = {currentUser: AuthService.getCurrentUser(), task: this.props.tododatas.length, dataStore: this.props.tododatas, showDate: false};
+        this.state = {currentUser: AuthService.getCurrentUser(), task: this.props.tododatas.length, dataStore: this.props.tododatas, showDate: false, monthData: '', yearData: null, dateData: null, tarehe: new Date(), tnt: ''};
         this.Logout = this.Logout.bind(this);
         this.receiveDataFromInput = this.receiveDataFromInput.bind(this);
         this.receiveDataFromModify = this.receiveDataFromModify.bind(this);
         this.receiveDataFromUpdate = this.receiveDataFromUpdate.bind(this);
         this.handleDateTrackerChange = this.handleDateTrackerChange.bind(this);
+        this.handleDateData = this.handleDateData.bind(this);
     }
     componentDidMount(){
         const user = AuthService.getCurrentUser();
+        //console.log(this.state.tarehe.getFullYear())
         if(user){
             console.log(user);
             this.setState({currentUser: user});
         }
+        //update dates
+        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        this.setState({monthData: months[this.state.tarehe.getMonth()]});
+        this.setState({yearData: this.state.tarehe.getFullYear()});
+        this.setState({dateData: this.state.tarehe.getDate()});
     }
     Logout(){
         AuthService.logout();
@@ -70,6 +77,12 @@ export default class Homer extends React.Component{
             this.setState({showDate: true})
         }
     }
+    handleDateData(value){
+        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        this.setState({monthData: months[value.getMonth()]});
+        this.setState({yearData: value.getFullYear()});
+        this.setState({dateData: value.getDate()});
+    }
     render(){
         const {currentUser} = this.state;
         return(
@@ -101,8 +114,14 @@ export default class Homer extends React.Component{
                                 <DateTodotracker
                                     task={this.state.task}
                                     handleDateChange = {this.handleDateTrackerChange}
+                                    month = {this.state.monthData}
+                                    year = {this.state.yearData}
+                                    date = {this.state.dateData}
                                 />
-                                <Kalenda showDate = {this.state.showDate} />
+                                <Kalenda 
+                                    showDate = {this.state.showDate}
+                                    handleDateData = {this.handleDateData}
+                                />
                                 <DayTab/>
                                 <AddTodoButton handleSubmits={this.receiveDataFromInput}/>
                                 <TodoButtonTracker/>
