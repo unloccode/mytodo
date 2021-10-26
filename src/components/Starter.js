@@ -1,7 +1,9 @@
 import React from 'react';
 import Homer from './Homer';
 
-const DB = [];
+const DB = [
+    {tskHead: 'code', tksBody: 'one of the finest code', tskDate: '16:44'},
+];
 
 export default class Starter extends React.Component{
     render(){

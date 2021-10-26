@@ -44,9 +44,11 @@ export default class Homer extends React.Component{
         //some code to receive data
         //titleTask
         //describeTask
-        const newData = {tskHead: receivedInputFromAddTodoButton[0].taskHead, tksBody: receivedInputFromAddTodoButton[0].taskBody};
-        console.log(receivedInputFromAddTodoButton[0].taskDate);
-        console.log(receivedInputFromAddTodoButton[0].taskDate.getMinutes());
+        let y = receivedInputFromAddTodoButton[0].taskDate.getHours();
+        let x = receivedInputFromAddTodoButton[0].taskDate.getMinutes();
+        let z = y+':'+x;
+        //console.log(z);
+        const newData = {tskHead: receivedInputFromAddTodoButton[0].taskHead, tksBody: receivedInputFromAddTodoButton[0].taskBody, tskDate: z};
         //update state
         this.setState({dataStore: [...this.state.dataStore, newData]});
         this.setState({task: this.state.task+1});

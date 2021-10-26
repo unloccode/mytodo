@@ -84,7 +84,8 @@ class RenderCard extends React.Component{
                         <div className="row">
                             <div className="col-sm-1"><span className="badge badge-primary">{this.props.id}</span></div>
                             <div className="col-sm-3" style={{cursor: 'pointer'}} onClick={this.handleOpenModal}>{todo.tskHead}</div>
-                            <div className="col-sm-4" style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', cursor: 'pointer'}} onClick={this.handleOpenModal} >{todo.tksBody}</div>
+                            <div className="col-sm-3" style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', cursor: 'pointer'}} onClick={this.handleOpenModal} >{todo.tksBody}</div>
+                            <div className="col-sm-1">{todo.tskDate}</div>
                             <div className="col-sm-2"> 
                                 <button className="btn" id={this.props.id} onClick={this.handleOpenModalEdit}><FontAwesomeIcon icon={faEdit} size="1x" style={{color: 'black'}}/></button>
                             </div>
