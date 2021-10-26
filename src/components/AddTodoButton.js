@@ -23,7 +23,7 @@ const customStyles = {
 export default class AddTodoButton extends React.Component{
     constructor(){
         super();
-        this.state = {showModal: false, titleTask: '', describeTask: '', tarehe: new Date()};
+        this.state = {showModal: false, titleTask: '', describeTask: ''};
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
         this.handletaskTitle = this.handletaskTitle.bind(this);
@@ -60,7 +60,7 @@ export default class AddTodoButton extends React.Component{
             //this.props.handleSubmits(this.state.titleTask);
             //combine data
             const combinedData = [
-                {taskHead: this.state.titleTask, taskBody: this.state.describeTask, taskDate: this.state.tarehe}
+                {taskHead: this.state.titleTask, taskBody: this.state.describeTask, taskDate: new Date()}
             ];
             this.props.handleSubmits(combinedData);
             //reset fields
