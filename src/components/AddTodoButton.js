@@ -23,7 +23,7 @@ const customStyles = {
 export default class AddTodoButton extends React.Component{
     constructor(){
         super();
-        this.state = {showModal: false, titleTask: '', describeTask: ''};
+        this.state = {showModal: false, titleTask: '', describeTask: '', tarehe: new Date()};
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
         this.handletaskTitle = this.handletaskTitle.bind(this);
@@ -59,7 +59,9 @@ export default class AddTodoButton extends React.Component{
             //send back data to homer db
             //this.props.handleSubmits(this.state.titleTask);
             //combine data
-            const combinedData = [{taskHead: this.state.titleTask, taskBody: this.state.describeTask}];
+            const combinedData = [
+                {taskHead: this.state.titleTask, taskBody: this.state.describeTask, taskDate: this.state.tarehe}
+            ];
             this.props.handleSubmits(combinedData);
             //reset fields
             this.setState({titleTask: ''});

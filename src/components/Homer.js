@@ -13,7 +13,6 @@ import TodoRenderer from './TodoRenderer';
 import Kalenda from './Kalenda';
 
 
-
 export default class Homer extends React.Component{
     constructor(props){
         super(props);
@@ -46,6 +45,8 @@ export default class Homer extends React.Component{
         //titleTask
         //describeTask
         const newData = {tskHead: receivedInputFromAddTodoButton[0].taskHead, tksBody: receivedInputFromAddTodoButton[0].taskBody};
+        console.log(receivedInputFromAddTodoButton[0].taskDate);
+        console.log(receivedInputFromAddTodoButton[0].taskDate.getMinutes());
         //update state
         this.setState({dataStore: [...this.state.dataStore, newData]});
         this.setState({task: this.state.task+1});
