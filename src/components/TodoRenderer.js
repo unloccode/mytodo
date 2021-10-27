@@ -82,14 +82,30 @@ class RenderCard extends React.Component{
                 <div className="card mt-2" style={{border: 'none'}}>
                     <div className="card-body" style={{boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px'}}>
                         <div className="row">
-                            <div className="col-sm-1"><span className="badge badge-primary">{this.props.id}</span></div>
-                            <div className="col-sm-3" style={{cursor: 'pointer'}} onClick={this.handleOpenModal}>{todo.tskHead}</div>
-                            <div className="col-sm-3" style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', cursor: 'pointer'}} onClick={this.handleOpenModal} >{todo.tksBody}</div>
-                            <div className="col-sm-1">{todo.tskDate}</div>
-                            <div className="col-sm-2"> 
-                                <button className="btn" id={this.props.id} onClick={this.handleOpenModalEdit}><FontAwesomeIcon icon={faEdit} size="1x" style={{color: 'black'}}/></button>
+                            <div className="col-sm-1">
+                                <div className="mt-2">
+                                    <span className="badge badge-primary">{this.props.id}</span>
+                                </div>
+                            </div>
+                            <div className="col-sm-2" style={{cursor: 'pointer', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}} onClick={this.handleOpenModal}>
+                                <div className="mt-2">
+                                    {todo.tskHead}
+                                </div>
+                            </div>
+                            <div className="col-sm-5" style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', cursor: 'pointer', color: 'gray'}} onClick={this.handleOpenModal} >
+                                <div className="mt-2">
+                                    {todo.tksBody}
+                                </div>
                             </div>
                             <div className="col-sm-2">
+                                <div className="mt-2 text-center">
+                                    {todo.tskDate}
+                                </div>
+                            </div>
+                            <div className="col-sm-1"> 
+                                <button className="btn" id={this.props.id} onClick={this.handleOpenModalEdit}><FontAwesomeIcon icon={faEdit} size="1x" style={{color: 'black'}}/></button>
+                            </div>
+                            <div className="col-sm-1">
                                 <button className="btn" id={this.props.id} onClick={this.handleDeleteItem}><FontAwesomeIcon icon={faTrash} size="1x" style={{color: 'black'}} /></button>
                             </div>
                         </div>
