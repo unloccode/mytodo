@@ -167,8 +167,10 @@ export default class TodoRenderer extends React.Component{
         const rows = [];
         let id = 1;
         this.props.tasks.forEach((todo)=>{
-            rows.push(<RenderCard todo={todo} id={id} key={todo.tskHead} handleEditDeleteRoute={this.props.handleEditDelete} handleUpdatedTodoRoute={this.props.handleUpdatedTodo}/>)
-            id=id+1;
+            if(todo.timeStamp === this.props.fstamp){
+                rows.push(<RenderCard todo={todo} id={id} key={todo.tskHead} handleEditDeleteRoute={this.props.handleEditDelete} handleUpdatedTodoRoute={this.props.handleUpdatedTodo}/>)
+                id=id+1;
+            }
         });
         //array mods
         //console.log('ARRAY');

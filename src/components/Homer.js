@@ -16,7 +16,7 @@ import Kalenda from './Kalenda';
 export default class Homer extends React.Component{
     constructor(props){
         super(props);
-        this.state = {currentUser: AuthService.getCurrentUser(), task: this.props.tododatas.length, dataStore: this.props.tododatas, showDate: false, monthData: '', yearData: null, dateData: null, tarehe: new Date(), toggleDayTab: false};
+        this.state = {currentUser: AuthService.getCurrentUser(), task: this.props.tododatas.length, dataStore: this.props.tododatas, showDate: false, monthData: '', yearData: null, dateData: null, tarehe: new Date(), toggleDayTab: false, frtDate: ''};
         this.Logout = this.Logout.bind(this);
         this.receiveDataFromInput = this.receiveDataFromInput.bind(this);
         this.receiveDataFromModify = this.receiveDataFromModify.bind(this);
@@ -48,7 +48,13 @@ export default class Homer extends React.Component{
         let x = receivedInputFromAddTodoButton[0].taskDate.getMinutes();
         let z = y+':'+x;
         //console.log(z);
-        const newData = {tskHead: receivedInputFromAddTodoButton[0].taskHead, tksBody: receivedInputFromAddTodoButton[0].taskBody, tskDate: z};
+        //generate date timestamp
+        let date = receivedInputFromAddTodoButton[0].taskDate.getDate();
+        let month = receivedInputFromAddTodoButton[0].taskDate.getMonth();
+        let year = receivedInputFromAddTodoButton[0].taskDate.getFullYear();
+        let newMonth = month+1;
+        let ftimeStamp = ""+date+newMonth+year;
+        const newData = {tskHead: receivedInputFromAddTodoButton[0].taskHead, tksBody: receivedInputFromAddTodoButton[0].taskBody, tskDate: z, timeStamp: ftimeStamp};
         //update state
         this.setState({dataStore: [...this.state.dataStore, newData]});
         this.setState({task: this.state.task+1});
@@ -92,10 +98,15 @@ export default class Homer extends React.Component{
             this.setState({toggleDayTab: false});
         }
     }
-    handleTareheFromDayTab(month, year, date){
+    handleTareheFromDayTab(month, year, date, extraMonth){
         this.setState({monthData: month});
         this.setState({yearData: year});
         this.setState({dateData: date});
+        //update frtDate
+        let newMonth = extraMonth+1;
+        let ftimeStamp = "" + date+newMonth+year;
+        //console.log(ftimeStamp);
+        this.setState({frtDate: ftimeStamp})
     }
     render(){
         const {currentUser} = this.state;
@@ -148,6 +159,7 @@ export default class Homer extends React.Component{
                                 <TodoRenderer 
                                     task={this.state.task}
                                     tasks = {this.state.dataStore}
+                                    fstamp = {this.state.frtDate}
                                     handleEditDelete = {this.receiveDataFromModify}
                                     handleUpdatedTodo = {this.receiveDataFromUpdate}
                                 />

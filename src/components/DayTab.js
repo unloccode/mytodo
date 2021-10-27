@@ -14,7 +14,7 @@ export default class DayTab extends React.Component{
         this.setState({tommorowToggler: false});
         //update date
         const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        this.props.handleTareheFromDayTab(months[this.state.tarehe.getMonth()], this.state.tarehe.getFullYear(), this.state.tarehe.getDate()-1);
+        this.props.handleTareheFromDayTab(months[this.state.tarehe.getMonth()], this.state.tarehe.getFullYear(), this.state.tarehe.getDate()-1, this.state.tarehe.getMonth());
     }
     handleToday(){
         this.setState({todayToggler: true});
@@ -22,7 +22,7 @@ export default class DayTab extends React.Component{
         this.setState({tommorowToggler: false});
         //update date
         const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        this.props.handleTareheFromDayTab(months[this.state.tarehe.getMonth()], this.state.tarehe.getFullYear(), this.state.tarehe.getDate());
+        this.props.handleTareheFromDayTab(months[this.state.tarehe.getMonth()], this.state.tarehe.getFullYear(), this.state.tarehe.getDate(), this.state.tarehe.getMonth());
     }
     handleTommorow(){
         this.setState({tommorowToggler: true});
@@ -30,7 +30,7 @@ export default class DayTab extends React.Component{
         this.setState({todayToggler: false});
         //update date
         const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        this.props.handleTareheFromDayTab(months[this.state.tarehe.getMonth()], this.state.tarehe.getFullYear(), this.state.tarehe.getDate()+1);
+        this.props.handleTareheFromDayTab(months[this.state.tarehe.getMonth()], this.state.tarehe.getFullYear(), this.state.tarehe.getDate()+1, this.state.tarehe.getMonth());
     }
     render(){
         return(
