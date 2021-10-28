@@ -11,6 +11,8 @@ import AddTodoButton from './AddTodoButton';
 import TodoButtonTracker from './TodoButtonTracker';
 import TodoRenderer from './TodoRenderer';
 import Kalenda from './Kalenda';
+//connect to the backed
+import axios from 'axios';
 
 
 export default class Homer extends React.Component{
@@ -58,6 +60,32 @@ export default class Homer extends React.Component{
         //update state
         this.setState({dataStore: [...this.state.dataStore, newData]});
         this.setState({task: this.state.task+1});
+        //push data to database
+        //1.taskHead
+        //2.taskBody
+        //3.taskDate
+        //4.taskTimeStamp
+        //5.done later
+        //6.userId later
+        console.log(receivedInputFromAddTodoButton[0].taskHead);
+        console.log(receivedInputFromAddTodoButton[0].taskBody);
+        console.log(z);
+        console.log(ftimeStamp);
+        const userTask = {
+            tHead: receivedInputFromAddTodoButton[0].taskHead,
+            tBody: receivedInputFromAddTodoButton[0].taskBody,
+            tDate: z,
+            tStamp: ftimeStamp
+        }
+        //send data to the backend server
+        axios.post("http://localhost:8080/api/tasks", userTask)
+        .then(res=>{
+            //some code
+            console.log(res.data);
+        }).catch(error=>{
+            //some code
+            console.log(error)
+        })
     }
     //update an external databank,
     //push data to the database
