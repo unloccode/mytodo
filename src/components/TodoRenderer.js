@@ -120,9 +120,12 @@ class RenderCard extends React.Component{
                                         </div>
                                     </div>
                                     <div style={{width: '600px'}}>
-                                        <div className="display-3">UNLOCCODE</div>
-                                        <p>{this.state.taskH}</p>
-                                        <p>{this.state.taskB}</p>
+                                        <div className="display-5 text-center">TASK PANEL</div>
+                                        <div className="mt-3">
+                                            <p style={{fontWeight: 600}}>{this.state.taskH}</p>
+                                            <hr/>
+                                            <p style={{fontFamily: 'monospace'}}>{this.state.taskB}</p>
+                                        </div>
                                     </div>
                                 </ReactModal>
                             </div>

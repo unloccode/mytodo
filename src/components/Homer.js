@@ -33,6 +33,19 @@ export default class Homer extends React.Component{
             console.log(user);
             this.setState({currentUser: user});
         }
+        //receive data from the backend
+        const userId = user.id;
+        axios.get(`http://localhost:8080/api/auth/task/${userId}`)
+        .then(res=>{
+            res.data.forEach((count)=>{
+                //console.log(count);
+                const newData = {tskHead: count.taskHead, tksBody: count.taskBody, tskDate: count.taskDate, timeStamp: count.taskTimeStamp};
+                this.setState({dataStore: [...this.state.dataStore, newData]});
+                this.setState({task: this.state.task+1});
+            })
+        }).catch(error=>{
+            console.log(error);
+        })
         //update dates
         const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         this.setState({monthData: months[this.state.tarehe.getMonth()]});
@@ -67,18 +80,18 @@ export default class Homer extends React.Component{
         //4.taskTimeStamp
         //5.done later
         //6.userId later
-        console.log(receivedInputFromAddTodoButton[0].taskHead);
-        console.log(receivedInputFromAddTodoButton[0].taskBody);
-        console.log(z);
-        console.log(ftimeStamp);
+        //console.log(this.state.currentUser.id)
+        console.log(newData)
         const userTask = {
-            tHead: receivedInputFromAddTodoButton[0].taskHead,
-            tBody: receivedInputFromAddTodoButton[0].taskBody,
-            tDate: z,
-            tStamp: ftimeStamp
+            taskHead: receivedInputFromAddTodoButton[0].taskHead,
+            taskBody: receivedInputFromAddTodoButton[0].taskBody,
+            taskDate: z,
+            taskTimeStamp: ftimeStamp,
+            done: false,
+            userbioId: this.state.currentUser.id
         }
         //send data to the backend server
-        axios.post("http://localhost:8080/api/tasks", userTask)
+        axios.post("http://localhost:8080/api/auth/writetodo", userTask)
         .then(res=>{
             //some code
             console.log(res.data);
