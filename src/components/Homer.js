@@ -59,6 +59,8 @@ export default class Homer extends React.Component{
         this.setState({dataStore: [...this.state.dataStore, newData]});
         this.setState({task: this.state.task+1});
     }
+    //update an external databank,
+    //push data to the database
     receiveDataFromModify(receivedEditDeleteData){
         let indexing = receivedEditDeleteData - 1;
         let db = this.state.dataStore;
