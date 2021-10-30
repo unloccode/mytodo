@@ -195,9 +195,22 @@ export default class TodoRenderer extends React.Component{
                         <div className="container">
                             <div className="row">
                                 <div className="col-sm-12" style={{height:'350px', overflowX: 'hidden', overflowY: 'scroll'}}>
-                                    <div className="todos">
-                                        {rows}
-                                    </div>
+                                    {
+                                        this.props.taskExist
+                                        ? (
+                                            <div className="mt-5">
+                                                <div className="mt-5 pt-5"></div>
+                                                <p style={{fontWeight: 'normal', fontFamily: 'sans-serif', fontSize: '14px',textDecoration: 'underline', textDecorationColor: 'red', textDecorationThickness: '4px'}}>No Tasks Added</p>
+                                                <div className="mt-5 pt-5"></div>
+                                                <div className="mt-5 pt-5"></div>
+                                                <div className="mt-5"></div>
+                                            </div>
+                                        ) : (
+                                            <div className="todos">
+                                                {rows}
+                                            </div>
+                                        )
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -215,14 +228,6 @@ export default class TodoRenderer extends React.Component{
                                 </div>
                             </div>
                         </div>
-                    )
-                }
-                {
-                    this.props.extraDayToggle
-                    ? (
-                        <div>one</div>
-                    ) : (
-                        <div>two</div>
                     )
                 }
             </div>

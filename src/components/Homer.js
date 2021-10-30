@@ -18,7 +18,7 @@ import axios from 'axios';
 export default class Homer extends React.Component{
     constructor(props){
         super(props);
-        this.state = {currentUser: AuthService.getCurrentUser(), task: this.props.tododatas.length, dataStore: this.props.tododatas, showDate: false, monthData: '', yearData: null, dateData: null, tarehe: new Date(), toggleDayTab: false, frtDate: '', extraDayToggle: false};
+        this.state = {currentUser: AuthService.getCurrentUser(), task: this.props.tododatas.length, dataStore: this.props.tododatas, showDate: false, monthData: '', yearData: null, dateData: null, tarehe: new Date(), toggleDayTab: false, frtDate: '', extraDayToggle: false, taskExist: false};
         this.Logout = this.Logout.bind(this);
         this.receiveDataFromInput = this.receiveDataFromInput.bind(this);
         this.receiveDataFromModify = this.receiveDataFromModify.bind(this);
@@ -55,6 +55,7 @@ export default class Homer extends React.Component{
         let newMonth = this.state.tarehe.getMonth()+1;
         let ftimeStamp = "" + this.state.tarehe.getDate()+newMonth+this.state.tarehe.getFullYear();
         this.setState({frtDate: ftimeStamp})
+        //extended
     }
     Logout(){
         AuthService.logout();
@@ -152,16 +153,29 @@ export default class Homer extends React.Component{
         let ftimeStamp = "" + date+newMonth+year;
         //console.log(ftimeStamp);
         this.setState({frtDate: ftimeStamp})
-        //console.log(this.state.dataStore[0].timeStamp);
-        //console.log(ftimeStamp)
+        //test unit
+        //console.log(this.state.dataStore.length)
+        let y = 0;
         let x = 0;
-        this.state.dataStore.forEach((task)=>{
-            if(ftimeStamp === task.timeStamp){
-            }else{
-                x = x+1;
-                console.log(x);
-            }
-        })
+        if(this.state.task ===0 ){
+            console.log('Zero')
+        }else{
+            this.state.dataStore.forEach((task)=>{
+                if(ftimeStamp === task.timeStamp){
+                    y = y+1;
+                    //console.log(y);
+                    //console.log(this.state.dataStore.length);
+                    if(y === this.state.dataStore.length){
+                        this.setState({taskExist: false});
+                    }
+                }else{
+                    x = x+1;
+                    if(x===this.state.dataStore.length){
+                        this.setState({taskExist: true});
+                    }
+                }
+            });
+        }
     }
     render(){
         const {currentUser} = this.state;
@@ -215,6 +229,7 @@ export default class Homer extends React.Component{
                                     task={this.state.task}
                                     tasks = {this.state.dataStore}
                                     fstamp = {this.state.frtDate}
+                                    taskExist = {this.state.taskExist}
                                     extraDayToggle = {this.state.extraDayToggle}
                                     handleEditDelete = {this.receiveDataFromModify}
                                     handleUpdatedTodo = {this.receiveDataFromUpdate}
