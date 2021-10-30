@@ -167,7 +167,7 @@ class RenderCard extends React.Component{
 
 export default class TodoRenderer extends React.Component{
     state = {
-        switchDateTask: false
+        switchDateTask: false,
     }
     render(){
         const rows = [];
@@ -218,7 +218,7 @@ export default class TodoRenderer extends React.Component{
                     )
                 }
                 {
-                    this.state.switchDateTask
+                    this.props.extraDayToggle
                     ? (
                         <div>one</div>
                     ) : (

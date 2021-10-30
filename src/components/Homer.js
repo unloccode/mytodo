@@ -18,7 +18,7 @@ import axios from 'axios';
 export default class Homer extends React.Component{
     constructor(props){
         super(props);
-        this.state = {currentUser: AuthService.getCurrentUser(), task: this.props.tododatas.length, dataStore: this.props.tododatas, showDate: false, monthData: '', yearData: null, dateData: null, tarehe: new Date(), toggleDayTab: false, frtDate: ''};
+        this.state = {currentUser: AuthService.getCurrentUser(), task: this.props.tododatas.length, dataStore: this.props.tododatas, showDate: false, monthData: '', yearData: null, dateData: null, tarehe: new Date(), toggleDayTab: false, frtDate: '', extraDayToggle: false};
         this.Logout = this.Logout.bind(this);
         this.receiveDataFromInput = this.receiveDataFromInput.bind(this);
         this.receiveDataFromModify = this.receiveDataFromModify.bind(this);
@@ -152,6 +152,16 @@ export default class Homer extends React.Component{
         let ftimeStamp = "" + date+newMonth+year;
         //console.log(ftimeStamp);
         this.setState({frtDate: ftimeStamp})
+        //console.log(this.state.dataStore[0].timeStamp);
+        //console.log(ftimeStamp)
+        let x = 0;
+        this.state.dataStore.forEach((task)=>{
+            if(ftimeStamp === task.timeStamp){
+            }else{
+                x = x+1;
+                console.log(x);
+            }
+        })
     }
     render(){
         const {currentUser} = this.state;
@@ -205,6 +215,7 @@ export default class Homer extends React.Component{
                                     task={this.state.task}
                                     tasks = {this.state.dataStore}
                                     fstamp = {this.state.frtDate}
+                                    extraDayToggle = {this.state.extraDayToggle}
                                     handleEditDelete = {this.receiveDataFromModify}
                                     handleUpdatedTodo = {this.receiveDataFromUpdate}
                                 />
