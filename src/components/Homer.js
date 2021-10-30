@@ -160,21 +160,27 @@ export default class Homer extends React.Component{
         if(this.state.task ===0 ){
             console.log('Zero')
         }else{
+            //console.log(ftimeStamp)
             this.state.dataStore.forEach((task)=>{
+                //console.log(task.timeStamp);
                 if(ftimeStamp === task.timeStamp){
                     y = y+1;
-                    //console.log(y);
-                    //console.log(this.state.dataStore.length);
-                    if(y === this.state.dataStore.length){
-                        this.setState({taskExist: false});
-                    }
+                    //console.log(y)
                 }else{
-                    x = x+1;
-                    if(x===this.state.dataStore.length){
-                        this.setState({taskExist: true});
+                    x=x+1;
+                    if(x === this.state.dataStore.length){
+                        this.setState({taskExist: true})
                     }
                 }
-            });
+            })
+            //second part of the toggle check exist task
+            let t =y;
+            for(let a=0; a<y; a++){
+                t = t-1;
+                if(t === 0){
+                    this.setState({taskExist: false})
+                }
+            }
         }
     }
     render(){
