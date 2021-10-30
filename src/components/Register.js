@@ -140,7 +140,7 @@ class Register extends React.Component{
                                             <div className="col-sm-3 offset-sm-9 position-absolute h-100">
                                                 <div className="clearfix">
                                                     <Link to="/login">
-                                                        <button className="float-right mt-2 btn" style={{color:'white', backgroundColor: 'black', borderRadius: '20px', padding: '6px 25px', fontSize: '12px', fontWeight: '700'}}>Login instead?</button>
+                                                        <button className="float-right mt-2 btn" style={{color:'white', backgroundColor: 'black', borderRadius: '20px', padding: '6px 25px', fontSize: '14px', fontWeight: '700'}}>Login instead?</button>
                                                     </Link>
                                                 </div>
                                                 <h3 className="text-center mt-4 pb-4 font16">Create account</h3>

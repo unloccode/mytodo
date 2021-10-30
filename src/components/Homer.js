@@ -51,6 +51,10 @@ export default class Homer extends React.Component{
         this.setState({monthData: months[this.state.tarehe.getMonth()]});
         this.setState({yearData: this.state.tarehe.getFullYear()});
         this.setState({dateData: this.state.tarehe.getDate()});
+        //update frtDate
+        let newMonth = this.state.tarehe.getMonth()+1;
+        let ftimeStamp = "" + this.state.tarehe.getDate()+newMonth+this.state.tarehe.getFullYear();
+        this.setState({frtDate: ftimeStamp})
     }
     Logout(){
         AuthService.logout();
@@ -80,8 +84,6 @@ export default class Homer extends React.Component{
         //4.taskTimeStamp
         //5.done later
         //6.userId later
-        //console.log(this.state.currentUser.id)
-        console.log(newData)
         const userTask = {
             taskHead: receivedInputFromAddTodoButton[0].taskHead,
             taskBody: receivedInputFromAddTodoButton[0].taskBody,
