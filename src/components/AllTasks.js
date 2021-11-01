@@ -7,6 +7,8 @@ import '../UI/profile.css';
 import { Link } from 'react-router-dom';
 //connect to the backend
 import axios from 'axios';
+import ExtraAllTodosRenderer from './ExtraAllTodosRenderer';
+
 
 export default class AllTasks extends React.Component{
     constructor(props){
@@ -74,7 +76,11 @@ export default class AllTasks extends React.Component{
                                         <button className="btn" disabled style={{padding: '4px 25px', boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px', borderRadius: '10px', color: 'black', border: 'none'}}>All tasks<span style={{paddingLeft: '20px'}}>{this.state.task}</span></button>
                                     </div>
                                 </div>
-                                <div className="col-sm-12"></div>
+                                <div className="col-sm-12">
+                                    <ExtraAllTodosRenderer
+                                        allTodos = {this.state.allTodos}
+                                    />
+                                </div>
                             </div>
                         </div>
                     ) : (

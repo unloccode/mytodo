@@ -18,7 +18,7 @@ const customStyles = {
 class RenderCard extends React.Component{
     constructor(props){
         super(props);
-        this.state = {showModal: false, taskH: '', taskB: '', showModalEdit: false, taskID: null};
+        this.state = {showModal: false, taskH: '', taskB: '', showModalEdit: false, taskID: null, isChecked: false};
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
         this.handleEditButton = this.handleEditButton.bind(this);
@@ -28,6 +28,7 @@ class RenderCard extends React.Component{
         this.handledescribeTask = this.handledescribeTask.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleDeleteItem = this.handleDeleteItem.bind(this);
+        this.handleTextboxOnchange = this.handleTextboxOnchange.bind(this);
     }
     handleOpenModal(){
         this.setState({showModal: true});
@@ -75,6 +76,14 @@ class RenderCard extends React.Component{
     handleDeleteItem(e){
         this.props.handleEditDeleteRoute(e.currentTarget.id);
     }
+    handleTextboxOnchange(){
+        if(this.state.isChecked === false){
+            this.setState({isChecked: true});
+        }
+        if(this.state.isChecked === true){
+            this.setState({isChecked: false});
+        }
+    }
     render(){
         const todo = this.props.todo;
         return(
@@ -85,6 +94,9 @@ class RenderCard extends React.Component{
                             <div className="col-sm-1">
                                 <div className="mt-2">
                                     <span className="badge badge-primary">{this.props.id}</span>
+                                    <span style={{paddingLeft: '20px', position: 'relative', top: '2px'}}>
+                                        <input type="checkbox" checked={this.state.isChecked} onChange={this.handleTextboxOnchange} />
+                                    </span>
                                 </div>
                             </div>
                             <div className="col-sm-2" style={{cursor: 'pointer', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}} onClick={this.handleOpenModal}>
