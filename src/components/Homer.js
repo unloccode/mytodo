@@ -11,7 +11,7 @@ import AddTodoButton from './AddTodoButton';
 import TodoButtonTracker from './TodoButtonTracker';
 import TodoRenderer from './TodoRenderer';
 import Kalenda from './Kalenda';
-//connect to the backed
+//connect to the backend
 import axios from 'axios';
 
 

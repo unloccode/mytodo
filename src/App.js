@@ -16,6 +16,7 @@ import ResetPassword from './components/ResetPassword';
 import MakePasswordChanges from './components/MakePasswordChanges';
 import PasswordChangedSuccess from './components/PasswordChangedSuccess';
 import ResetRequestSuccess from './components/ResetRequestSuccess';
+import AllTasks from './components/AllTasks';
 
 class App extends React.Component{
   render(){
@@ -34,6 +35,7 @@ class App extends React.Component{
             <Route exact path="/accountsettings/:id" component={MakePasswordChanges} />
             <Route path="/pwdsuccess" component={PasswordChangedSuccess} />
             <Route path="/pwdrqsuccess" component={ResetRequestSuccess} />
+            <Route path="/alltasks" component={AllTasks} />
           </Switch>
       </Router>
     ); 
