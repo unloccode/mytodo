@@ -144,32 +144,13 @@ export default class Homer extends React.Component{
             this.setState({toggleDayTab: false});
         }
         //test unit
-        //let newMonth = value.getMonth()+1;
-        //let ftimeStamp = "" + value.getDate() + newMonth + value.getFullYear();
-        //let y = 0;
-        //let x = 0;
-        //if(this.state.task === 0){
-        //    console.log('Zero')
-        //}else{
-        //    this.state.dataStore.forEach((task)=>{
-        //        if(ftimeStamp === task.timeStamp){
-        //            y = y+1;
-        //        }else{
-        //            x=x+1;
-        //            if(x === this.state.dataStore.length){
-        //                this.setState({taskExist: true});
-        //            }
-        //        }
-        //    });
-        //    //second part of the toggle check exist task
-        //    let t =y;
-        //    for(let a=0; a<y; a++){
-        //        t = t-1;
-        //        if(t === 0){
-        //            this.setState({taskExist: false})
-        //        }
-        //    }
-        //}
+        let newMonth = value.getMonth()+1;
+        let ftimeStamp = "" + value.getDate() + newMonth + value.getFullYear();
+        console.log(ftimeStamp);
+        //update date
+        this.setState({frtDate: ftimeStamp});
+        //close date
+        this.setState({showDate: false});
     }
     handleTareheFromDayTab(month, year, date, extraMonth){
         this.setState({monthData: month});
