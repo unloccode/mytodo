@@ -18,7 +18,7 @@ import axios from 'axios';
 export default class Homer extends React.Component{
     constructor(props){
         super(props);
-        this.state = {currentUser: AuthService.getCurrentUser(), task: this.props.tododatas.length, dataStore: this.props.tododatas, showDate: false, monthData: '', yearData: null, dateData: null, tarehe: new Date(), toggleDayTab: false, frtDate: '', extraDayToggle: false, taskExist: false};
+        this.state = {currentUser: AuthService.getCurrentUser(), task: this.props.tododatas.length, dataStore: this.props.tododatas, showDate: false, monthData: '', yearData: null, dateData: null, tarehe: new Date(), toggleDayTab: false, frtDate: '', extraDayToggle: false, taskExist: false, perdayTodoCounter: null};
         this.Logout = this.Logout.bind(this);
         this.receiveDataFromInput = this.receiveDataFromInput.bind(this);
         this.receiveDataFromModify = this.receiveDataFromModify.bind(this);
@@ -146,11 +146,39 @@ export default class Homer extends React.Component{
         //test unit
         let newMonth = value.getMonth()+1;
         let ftimeStamp = "" + value.getDate() + newMonth + value.getFullYear();
-        console.log(ftimeStamp);
+        //console.log(ftimeStamp);
         //update date
         this.setState({frtDate: ftimeStamp});
         //close date
         this.setState({showDate: false});
+        //update number of todos/tasks per day rendered
+        let y = 0;
+        let x = 0;
+        if(this.state.task === 0){
+            console.log('Zero');
+        }else{
+            this.state.dataStore.forEach((task)=>{
+                //filter task using data
+                if(ftimeStamp === task.timeStamp){
+                    y = y+1;
+                }else{
+                    x=x+1;
+                    if(x === this.state.dataStore.length){
+                        this.setState({taskExist: true});
+                        this.setState({perdayTodoCounter: 0})
+                    }
+                }
+            });
+            //second part of the toggle check exist task
+            this.setState({perdayTodoCounter: y});
+            let t = y;
+            for(let a=0; a<y; a++){
+                t = t-1;
+                if(t === 0){
+                    this.setState({taskExist: false});
+                }
+            }
+        }
     }
     handleTareheFromDayTab(month, year, date, extraMonth){
         this.setState({monthData: month});
@@ -166,7 +194,7 @@ export default class Homer extends React.Component{
         let y = 0;
         let x = 0;
         if(this.state.task ===0 ){
-            console.log('Zero')
+            console.log('Zero');
         }else{
             //console.log(ftimeStamp)
             this.state.dataStore.forEach((task)=>{
@@ -174,20 +202,21 @@ export default class Homer extends React.Component{
                 if(ftimeStamp === task.timeStamp){
                     y = y+1;
                     //console.log(y)
-                    
                 }else{
                     x=x+1;
                     if(x === this.state.dataStore.length){
                         this.setState({taskExist: true})
+                        this.setState({perdayTodoCounter: 0})
                     }
                 }
-            })
+            });
             //second part of the toggle check exist task
+            this.setState({perdayTodoCounter: y})
             let t =y;
             for(let a=0; a<y; a++){
                 t = t-1;
                 if(t === 0){
-                    this.setState({taskExist: false})
+                    this.setState({taskExist: false});
                 }
             }
         }
@@ -239,7 +268,7 @@ export default class Homer extends React.Component{
                                     date = {this.state.dateData}
                                 />
                                 <AddTodoButton handleSubmits={this.receiveDataFromInput}/>
-                                <TodoButtonTracker/>
+                                <TodoButtonTracker perdayTodoCounter={this.state.perdayTodoCounter} />
                                 <TodoRenderer 
                                     task={this.state.task}
                                     tasks = {this.state.dataStore}
