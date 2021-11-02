@@ -267,7 +267,12 @@ export default class Homer extends React.Component{
                                     year = {this.state.yearData}
                                     date = {this.state.dateData}
                                 />
-                                <AddTodoButton handleSubmits={this.receiveDataFromInput}/>
+                                <AddTodoButton handleSubmits={this.receiveDataFromInput}
+                                    handleDateChange = {this.handleDateTrackerChange}
+                                    month = {this.state.monthData}
+                                    year = {this.state.yearData}
+                                    date = {this.state.dateData}
+                                />
                                 <TodoButtonTracker perdayTodoCounter={this.state.perdayTodoCounter} />
                                 <TodoRenderer 
                                     task={this.state.task}

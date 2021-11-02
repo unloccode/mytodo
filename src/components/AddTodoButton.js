@@ -29,6 +29,7 @@ export default class AddTodoButton extends React.Component{
         this.handletaskTitle = this.handletaskTitle.bind(this);
         this.handledescribeTask = this.handledescribeTask.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleNewSelectedTaskDate = this.handleNewSelectedTaskDate.bind(this);
     }
     handleOpenModal(){
         this.setState({showModal: true});
@@ -68,6 +69,9 @@ export default class AddTodoButton extends React.Component{
             this.setState({describeTask: ''});
         }
     }
+    handleNewSelectedTaskDate(){
+        this.props.handleDateChange();
+    }
     render(){
         return(
             <div className="container">
@@ -78,10 +82,16 @@ export default class AddTodoButton extends React.Component{
                         </div>
                         <ReactModal isOpen={this.state.showModal} contentLabel="Minimal Modal Example" style={customStyles} appElement={document.getElementById('root')}>
                             <div className="clearfix">
+                                <div className="float-left">
+                                    <button className="btn" style={{color: 'white', backgroundColor: 'black', fontFamily: 'sans-serif', fontSize: '12px', borderRadius: '10px', padding: '3px 15px'}} onClick={this.handleNewSelectedTaskDate}>Select date</button>
+                                    <span style={{paddingLeft: '20px'}}></span>
+                                    <span style={{borderBottom: '4px solid blue'}}>{this.props.date} / <span>{this.props.month} / <span>{this.props.year}</span></span></span>
+                                </div>
                                 <div className="float-right">
                                     <button className="btn" style={{color: 'white', backgroundColor: 'red', fontFamily: 'sans-serif', fontSize: '12px', borderRadius: '10px', padding: '3px 15px'}} onClick={this.handleCloseModal}>close</button>
                                 </div>
                             </div>
+                            <div className="mt-4 mb-5"></div>
                             <div style={{width: '600px'}}>
                                 <div>
                                     <form onSubmit={this.handleSubmit}>

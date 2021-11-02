@@ -16,7 +16,9 @@ export default function Kalenda(props){
     //    setEye(value);
     //}
     function onChange(nextValue){
+        //send date to the main
         props.handleDateData(nextValue);
+        //send date to todoRenderer for add task
         setValue(nextValue)
     }
     return(
