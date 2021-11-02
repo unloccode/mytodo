@@ -51,6 +51,7 @@ export default class AddTodoButton extends React.Component{
     }
     handleSubmit(e){
         e.preventDefault();
+        //formatdate to ddmmyyyy
         if(this.state.titleTask && this.state.describeTask !== ''){
             //console.log(this.state.titleTask);
             //console.log(this.state.describeTask);
@@ -61,7 +62,7 @@ export default class AddTodoButton extends React.Component{
             //this.props.handleSubmits(this.state.titleTask);
             //combine data
             const combinedData = [
-                {taskHead: this.state.titleTask, taskBody: this.state.describeTask, taskDate: new Date()}
+                {taskHead: this.state.titleTask, taskBody: this.state.describeTask, taskDate: this.props.rawDates}
             ];
             this.props.handleSubmits(combinedData);
             //reset fields

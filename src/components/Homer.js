@@ -18,7 +18,7 @@ import axios from 'axios';
 export default class Homer extends React.Component{
     constructor(props){
         super(props);
-        this.state = {currentUser: AuthService.getCurrentUser(), task: this.props.tododatas.length, dataStore: this.props.tododatas, showDate: false, monthData: '', yearData: null, dateData: null, tarehe: new Date(), toggleDayTab: false, frtDate: '', extraDayToggle: false, taskExist: false, perdayTodoCounter: null};
+        this.state = {currentUser: AuthService.getCurrentUser(), task: this.props.tododatas.length, dataStore: this.props.tododatas, showDate: false, monthData: '', yearData: null, dateData: null, tarehe: new Date(), toggleDayTab: false, frtDate: '', extraDayToggle: false, taskExist: false, perdayTodoCounter: null, rawDates: null};
         this.Logout = this.Logout.bind(this);
         this.receiveDataFromInput = this.receiveDataFromInput.bind(this);
         this.receiveDataFromModify = this.receiveDataFromModify.bind(this);
@@ -56,6 +56,7 @@ export default class Homer extends React.Component{
         let ftimeStamp = "" + this.state.tarehe.getDate()+newMonth+this.state.tarehe.getFullYear();
         this.setState({frtDate: ftimeStamp})
         //extended
+        this.setState({rawDates: new Date()});
     }
     Logout(){
         AuthService.logout();
@@ -64,6 +65,7 @@ export default class Homer extends React.Component{
         //some code to receive data
         //titleTask
         //describeTask
+        //console.log(receivedInputFromAddTodoButton)
         let y = receivedInputFromAddTodoButton[0].taskDate.getHours();
         let x = receivedInputFromAddTodoButton[0].taskDate.getMinutes();
         let z = y+':'+x;
@@ -133,6 +135,7 @@ export default class Homer extends React.Component{
         }
     }
     handleDateData(value){
+        this.setState({rawDates: value});
         const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         this.setState({monthData: months[value.getMonth()]});
         this.setState({yearData: value.getFullYear()});
@@ -272,6 +275,7 @@ export default class Homer extends React.Component{
                                     month = {this.state.monthData}
                                     year = {this.state.yearData}
                                     date = {this.state.dateData}
+                                    rawDates = {this.state.rawDates}
                                 />
                                 <TodoButtonTracker perdayTodoCounter={this.state.perdayTodoCounter} />
                                 <TodoRenderer 
