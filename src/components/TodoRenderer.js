@@ -98,7 +98,7 @@ class RenderCard extends React.Component{
         //axios.post(`http://localhost:8080/api/auth/taskdone/${userId}`)
         const user = {
             userId : this.state.currentUser.id,
-            idTask : e.currentTarget.id
+            idTask : this.props.todo.tskHead
         };
         axios.post("http://localhost:8080/api/auth/taskdone", user)
         .then(res=>{
