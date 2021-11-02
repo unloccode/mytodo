@@ -118,7 +118,7 @@ class RenderCard extends React.Component{
                                 <div className="mt-2">
                                     <span className="badge badge-primary">{this.props.id}</span>
                                     <span style={{paddingLeft: '10px', position: 'relative', top: '2px'}}>
-                                        <input type="checkbox" checked={this.state.isChecked} id={this.props.id} onChange={this.handleTextboxOnchange} />
+                                        <input type="checkbox" checked={todo.done} id={this.props.id} onChange={this.handleTextboxOnchange} />
                                     </span>
                                 </div>
                             </div>

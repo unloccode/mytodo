@@ -38,8 +38,7 @@ export default class Homer extends React.Component{
         axios.get(`http://localhost:8080/api/auth/task/${userId}`)
         .then(res=>{
             res.data.forEach((count)=>{
-                //console.log(count);
-                const newData = {tskHead: count.taskHead, tksBody: count.taskBody, tskDate: count.taskDate, timeStamp: count.taskTimeStamp};
+                const newData = {tskHead: count.taskHead, tksBody: count.taskBody, tskDate: count.taskDate, timeStamp: count.taskTimeStamp, done: count.done};
                 this.setState({dataStore: [...this.state.dataStore, newData]});
                 this.setState({task: this.state.task+1});
             })
