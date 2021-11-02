@@ -3,6 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 //import PreviewTab from './PreviewTab';
 import ReactModal from 'react-modal';
+//user
+import AuthService from '../services/auth.service';
+//import backend
+import axios from 'axios';
 
 const customStyles = {
     content: {
@@ -18,7 +22,7 @@ const customStyles = {
 class RenderCard extends React.Component{
     constructor(props){
         super(props);
-        this.state = {showModal: false, taskH: '', taskB: '', showModalEdit: false, taskID: null, isChecked: false, strikeT: false};
+        this.state = {showModal: false, taskH: '', taskB: '', showModalEdit: false, taskID: null, isChecked: false, strikeT: false, currentUser: AuthService.getCurrentUser(), todoId: null};
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
         this.handleEditButton = this.handleEditButton.bind(this);
@@ -29,6 +33,12 @@ class RenderCard extends React.Component{
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleDeleteItem = this.handleDeleteItem.bind(this);
         this.handleTextboxOnchange = this.handleTextboxOnchange.bind(this);
+    }
+    componentDidMount(){
+        const user = AuthService.getCurrentUser();
+        if(user){
+            this.setState({currentUser: user});
+        }
     }
     handleOpenModal(){
         this.setState({showModal: true});
@@ -76,12 +86,26 @@ class RenderCard extends React.Component{
     handleDeleteItem(e){
         this.props.handleEditDeleteRoute(e.currentTarget.id);
     }
-    handleTextboxOnchange(){
+    handleTextboxOnchange(e){
         //toggle isChecked to true
         this.setState({isChecked: true});
         if(this.state.strikeT === false){
             this.setState({strikeT: true})
         }
+        //send data to the backend
+        //send user id & task id
+        //const userId = this.state.currentUser.id;
+        //axios.post(`http://localhost:8080/api/auth/taskdone/${userId}`)
+        const user = {
+            userId : this.state.currentUser.id,
+            idTask : e.currentTarget.id
+        };
+        axios.post("http://localhost:8080/api/auth/taskdone", user)
+        .then(res=>{
+            console.log(res.data);
+        }).catch(error=>{
+            console.log(error);
+        })
     }
     render(){
         const todo = this.props.todo;
@@ -94,7 +118,7 @@ class RenderCard extends React.Component{
                                 <div className="mt-2">
                                     <span className="badge badge-primary">{this.props.id}</span>
                                     <span style={{paddingLeft: '10px', position: 'relative', top: '2px'}}>
-                                        <input type="checkbox" checked={this.state.isChecked} onChange={this.handleTextboxOnchange} />
+                                        <input type="checkbox" checked={this.state.isChecked} id={this.props.id} onChange={this.handleTextboxOnchange} />
                                     </span>
                                 </div>
                             </div>
