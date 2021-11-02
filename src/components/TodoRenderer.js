@@ -18,7 +18,7 @@ const customStyles = {
 class RenderCard extends React.Component{
     constructor(props){
         super(props);
-        this.state = {showModal: false, taskH: '', taskB: '', showModalEdit: false, taskID: null, isChecked: false};
+        this.state = {showModal: false, taskH: '', taskB: '', showModalEdit: false, taskID: null, isChecked: false, strikeT: false};
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
         this.handleEditButton = this.handleEditButton.bind(this);
@@ -77,11 +77,10 @@ class RenderCard extends React.Component{
         this.props.handleEditDeleteRoute(e.currentTarget.id);
     }
     handleTextboxOnchange(){
-        if(this.state.isChecked === false){
-            this.setState({isChecked: true});
-        }
-        if(this.state.isChecked === true){
-            this.setState({isChecked: false});
+        //toggle isChecked to true
+        this.setState({isChecked: true});
+        if(this.state.strikeT === false){
+            this.setState({strikeT: true})
         }
     }
     render(){
@@ -100,14 +99,32 @@ class RenderCard extends React.Component{
                                 </div>
                             </div>
                             <div className="col-sm-2" style={{cursor: 'pointer', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}} onClick={this.handleOpenModal}>
-                                <div className="mt-2">
-                                    {todo.tskHead}
-                                </div>
+                                {
+                                    this.state.strikeT ?
+                                    (
+                                        <div className="mt-2" style={{textDecoration: 'line-through'}}>
+                                            {todo.tskHead}
+                                        </div>
+                                    ) : (
+                                        <div className="mt-2">
+                                            {todo.tskHead}
+                                        </div>
+                                    )
+                                }
                             </div>
                             <div className="col-sm-5" style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', cursor: 'pointer', color: 'gray'}} onClick={this.handleOpenModal} >
-                                <div className="mt-2">
-                                    {todo.tksBody}
-                                </div>
+                                {
+                                    this.state.strikeT ?
+                                    (
+                                        <div className="mt-2" style={{textDecoration: 'line-through'}}>
+                                            {todo.tksBody}
+                                        </div>
+                                    ) : (
+                                        <div className="mt-2">
+                                            {todo.tksBody}
+                                        </div>
+                                    )
+                                }
                             </div>
                             <div className="col-sm-2">
                                 <div className="mt-2 text-center">
@@ -115,7 +132,14 @@ class RenderCard extends React.Component{
                                 </div>
                             </div>
                             <div className="col-sm-1"> 
-                                <button className="btn" id={this.props.id} onClick={this.handleOpenModalEdit}><FontAwesomeIcon icon={faEdit} size="1x" style={{color: 'black'}}/></button>
+                                {
+                                    this.state.strikeT ?
+                                    (
+                                        <span></span>
+                                    ) : (
+                                        <button className="btn" id={this.props.id} onClick={this.handleOpenModalEdit}><FontAwesomeIcon icon={faEdit} size="1x" style={{color: 'black'}}/></button>
+                                    )
+                                }
                             </div>
                             <div className="col-sm-1">
                                 <button className="btn" id={this.props.id} onClick={this.handleDeleteItem}><FontAwesomeIcon icon={faTrash} size="1x" style={{color: 'black'}} /></button>
