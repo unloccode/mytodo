@@ -118,7 +118,12 @@ class RenderCard extends React.Component{
                                 <div className="mt-2">
                                     <span className="badge badge-primary">{this.props.id}</span>
                                     <span style={{paddingLeft: '10px', position: 'relative', top: '2px'}}>
-                                        <input type="checkbox" checked={todo.done} id={this.props.id} onChange={this.handleTextboxOnchange} />
+                                        
+                                        {
+                                            todo.done
+                                            ? <input type="checkbox" checked={todo.done} id={this.props.id} onChange={this.handleTextboxOnchange} />
+                                            : <input type="checkbox" checked={this.state.isChecked} id={this.props.id} onChange={this.handleTextboxOnchange} />
+                                        }
                                     </span>
                                 </div>
                             </div>
@@ -130,8 +135,14 @@ class RenderCard extends React.Component{
                                             {todo.tskHead}
                                         </div>
                                     ) : (
-                                        <div className="mt-2">
-                                            {todo.tskHead}
+                                        <div>
+                                            {
+                                                todo.done ? (
+                                                    <div className="mt-2" style={{textDecoration: 'line-through'}}>{todo.tskHead}</div>
+                                                ) : (
+                                                    <div className="mt-2">{todo.tskHead}</div>
+                                                )
+                                            }
                                         </div>
                                     )
                                 }
@@ -144,8 +155,14 @@ class RenderCard extends React.Component{
                                             {todo.tksBody}
                                         </div>
                                     ) : (
-                                        <div className="mt-2">
-                                            {todo.tksBody}
+                                        <div>
+                                            {
+                                                todo.done ? (
+                                                    <div className="mt-2" style={{textDecoration: 'line-through'}}>{todo.tksBody}</div>
+                                                ) : (
+                                                    <div className="mt-2">{todo.tksBody}</div>
+                                                )
+                                            }
                                         </div>
                                     )
                                 }
@@ -161,7 +178,15 @@ class RenderCard extends React.Component{
                                     (
                                         <span></span>
                                     ) : (
-                                        <button className="btn" id={this.props.id} onClick={this.handleOpenModalEdit}><FontAwesomeIcon icon={faEdit} size="1x" style={{color: 'black'}}/></button>
+                                        <div>
+                                            {
+                                                todo.done ? (
+                                                    <span></span>
+                                                ) : (
+                                                    <button className="btn" id={this.props.id} onClick={this.handleOpenModalEdit}><FontAwesomeIcon icon={faEdit} size="1x" style={{color: 'black'}}/></button>
+                                                )
+                                            }
+                                        </div>
                                     )
                                 }
                             </div>
