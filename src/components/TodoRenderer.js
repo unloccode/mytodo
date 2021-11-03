@@ -85,6 +85,18 @@ class RenderCard extends React.Component{
     }
     handleDeleteItem(e){
         this.props.handleEditDeleteRoute(e.currentTarget.id);
+        //send data to backend
+        const user = {
+            userId : this.state.currentUser.id,
+            idTask : this.props.todo.tskHead
+        };
+        //init axios
+        axios.delete("http://locahost:8080/api/auth/taskrd", user)
+        .then(res=>{
+            console.log(res.data);
+        }).catch(error=>{
+            console.log(error);
+        })
     }
     handleTextboxOnchange(e){
         //toggle isChecked to true
