@@ -92,8 +92,9 @@ class RenderCard extends React.Component{
         //};
         //init axios
         //axios.delete("http://localhost:8080/api/auth/", {user})
+        const userId = this.state.currentUser.id;
         const id = this.props.todo.tskHead;
-        axios.delete(`http://localhost:8080/api/auth/taskrd/${id}`, {data: {foo: "bar"}})
+        axios.delete(`http://localhost:8080/api/auth/taskrd/${id}`, {data: {foo: userId}})
         .then(res=>{
             console.log(res.data);
         }).catch(error=>{
