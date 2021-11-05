@@ -38,8 +38,18 @@ export default class AllTasks extends React.Component{
     Logout(){
         AuthService.logout();
     }
-    receiveDataFromUpdate(){
-        console.log('terminal-s');
+    receiveDataFromUpdate(receivedDatatobeUpdated){
+        const taskID = receivedDatatobeUpdated[0].taskNo;
+        const newData = {tskHead: receivedDatatobeUpdated[0].taskHead, tksBody: receivedDatatobeUpdated[0].taskBody};
+        //delete init data
+        let indexing = taskID - 1;
+        let db = this.state.allTodos;
+        db.splice(indexing, 1);
+        //add new data to the array
+        db.splice(indexing, 0, newData);
+        //update state
+        this.setState({allTodos: db});
+
     }
     render(){
         const {currentUser} = this.state;

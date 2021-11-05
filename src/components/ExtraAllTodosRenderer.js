@@ -61,8 +61,7 @@ class RenderCard extends React.Component{
                     {taskNo: this.state.taskID, taskHead: this.state.taskH, taskBody: this.state.taskB}
                 ];
                 //send combine data to origin
-                console.log(combinedData)
-                this.props.receiveDataFromUpdateOnRoute();
+                this.props.receiveDataFromUpdateOnRoute(combinedData);
                 //this.props.handleUpdatedTodoRoute(combinedData);
             }
         }
