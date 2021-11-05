@@ -15,6 +15,7 @@ export default class AllTasks extends React.Component{
         super(props);
         this.state = {currentUser: AuthService.getCurrentUser(), allTodos: [], todosCount: null, task: null};
         this.Logout = this.Logout.bind(this);
+        this.receiveDataFromUpdate = this.receiveDataFromUpdate.bind(this);
     }
     componentDidMount(){
         const user = AuthService.getCurrentUser();
@@ -36,6 +37,9 @@ export default class AllTasks extends React.Component{
     }
     Logout(){
         AuthService.logout();
+    }
+    receiveDataFromUpdate(){
+        console.log('terminal-s');
     }
     render(){
         const {currentUser} = this.state;
@@ -79,6 +83,7 @@ export default class AllTasks extends React.Component{
                                 <div className="col-sm-12">
                                     <ExtraAllTodosRenderer
                                         allTodos = {this.state.allTodos}
+                                        receiveDataFromUpdate = {this.receiveDataFromUpdate}
                                     />
                                 </div>
                             </div>

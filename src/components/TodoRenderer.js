@@ -213,7 +213,7 @@ class RenderCard extends React.Component{
                     <div className="container">
                         <div className="row">
                             <div className="col-sm-12">
-                                <ReactModal isOpen={this.state.showModal} contentLabel="Minimal Modal Example" style={customStyles} appElement={document.getElementById('root')}>
+                                <ReactModal isOpen={this.state.showModal} contentLabel="Minimal Modal Terminal" style={customStyles} appElement={document.getElementById('root')}>
                                     <div className="clearfix">
                                         <div className="float-right">
                                             <button className="btn" style={{color: 'white', backgroundColor: 'red', fontFamily: 'sans-serif', fontSize: '12px', borderRadius: '10px', padding: '3px 15px'}} onClick={this.handleCloseModal}>close</button>
@@ -234,7 +234,7 @@ class RenderCard extends React.Component{
                     <div className="container">
                         <div className="row">
                             <div className="col-sm-12">
-                                <ReactModal isOpen={this.state.showModalEdit} contentLabel="Minimal Modal Example" style={customStyles} appElement={document.getElementById('root')}>
+                                <ReactModal isOpen={this.state.showModalEdit} contentLabel="Minimal Modal Terminal" style={customStyles} appElement={document.getElementById('root')}>
                                     <div className="clearfix">
                                         <div className="float-right">
                                             <button className="btn" style={{color: 'white', backgroundColor: 'red', fontFamily: 'sans-serif', fontSize: '12px', borderRadius: '10px', padding: '3px 15px'}} onClick={this.handleCloseModalEdit}>close</button>
