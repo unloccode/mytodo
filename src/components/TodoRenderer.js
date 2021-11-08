@@ -22,7 +22,7 @@ const customStyles = {
 class RenderCard extends React.Component{
     constructor(props){
         super(props);
-        this.state = {showModal: false, taskH: '', taskB: '', showModalEdit: false, taskID: null, isChecked: false, strikeT: false, currentUser: AuthService.getCurrentUser(), todoId: null};
+        this.state = {showModal: false, taskH: '', taskB: '', showModalEdit: false, taskID: null, isChecked: false, strikeT: false, currentUser: AuthService.getCurrentUser(), todoId: null, updatedTime: '15:42', updatedDates: '8/11/2021'};
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
         this.handleEditButton = this.handleEditButton.bind(this);
@@ -116,13 +116,26 @@ class RenderCard extends React.Component{
         if(this.state.strikeT === false){
             this.setState({strikeT: true})
         }
+        //probe time for current dates
+        const date = new Date();
+        //format date
+        let newMonth = date.getMonth()+1;
+        let ftimeStamp = ""+date.getDate() + "/" + newMonth + "/" + date.getFullYear();
+        //format time
+        let h = date.getHours();
+        let m = date.getMinutes();
+        let fdate = h + ":" + m;
+        //update state
+        this.setState({updatedTime: fdate});
+        this.setState({updatedDates: ftimeStamp});
+
         //send data to the backend
         //send user id & task id
-        //const userId = this.state.currentUser.id;
-        //axios.post(`http://localhost:8080/api/auth/taskdone/${userId}`)
         const user = {
             userId : this.state.currentUser.id,
-            idTask : this.props.todo.tskHead
+            idTask : this.props.todo.tskHead,
+            taskDate: fdate,
+            taskTimeStamp: ftimeStamp
         };
         axios.post("http://localhost:8080/api/auth/taskdone", user)
         .then(res=>{
@@ -171,7 +184,7 @@ class RenderCard extends React.Component{
                                     )
                                 }
                             </div>
-                            <div className="col-sm-5" style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', cursor: 'pointer', color: 'gray'}} onClick={this.handleOpenModal} >
+                            <div className="col-sm-4" style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', cursor: 'pointer', color: 'gray'}} onClick={this.handleOpenModal} >
                                 {
                                     this.state.strikeT ?
                                     (
@@ -191,9 +204,31 @@ class RenderCard extends React.Component{
                                     )
                                 }
                             </div>
-                            <div className="col-sm-2">
+                            <div className="col-sm-3">
                                 <div className="mt-2 text-center">
-                                    {todo.tskDate}
+                                    {
+                                        this.state.strikeT ? (
+                                            <div>
+                                                <span>{this.state.updatedTime}</span>
+                                                <span> </span>
+                                                <span style={{borderLeft: '2px solid red', height: '14px', paddingLeft: '5px'}}>{this.state.updatedDates}</span>
+                                            </div>
+                                        ) : (
+                                            <div>
+                                                {
+                                                    todo.done ? (
+                                                        <div>
+                                                            <span>{todo.tskDate}</span>
+                                                            <span> </span>
+                                                            <span style={{borderLeft: '2px solid red', height: '14px', paddingLeft: '5px'}}>{todo.timeStamp}</span>
+                                                        </div>
+                                                    ) : (
+                                                        <span>{todo.tskDate}</span>
+                                                    )
+                                                }
+                                            </div>
+                                        )
+                                    }
                                 </div>
                             </div>
                             <div className="col-sm-1"> 
