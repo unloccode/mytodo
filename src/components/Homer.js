@@ -114,24 +114,23 @@ export default class Homer extends React.Component{
         this.setState({task: this.state.task-1})
     }
     receiveDataFromUpdate(receivedDatatobeUpdated){
-        //const taskID = receivedDatatobeUpdated[0].taskNo;
-        //const newData = {tskHead: receivedDatatobeUpdated[0].taskHead, tksBody: receivedDatatobeUpdated[0].taskBody};
-        ////delete init data
-        //let indexing = taskID - 1;
-        //let db = this.state.dataStore;
-        //db.splice(indexing, 1);
-        ////add new data to array
-        //db.splice(indexing, 0, newData);
-        ////update state
-        ////this.setState({dataStore: db});
-        //console.log(db);
-
+        const taskID = receivedDatatobeUpdated[0].taskId;
+        const newData = {taskKey: receivedDatatobeUpdated[0].taskNo, tskHead: receivedDatatobeUpdated[0].taskHead, tksBody: receivedDatatobeUpdated[0].taskBody, tskDate: receivedDatatobeUpdated[0].taskDate, timeStamp: receivedDatatobeUpdated[0].taskTimeStamp};
+        //delete init data
+        let db = this.state.dataStore;
+        db.splice(taskID, 1);
+        //add new data to array
+        db.splice(taskID, 0, newData);
+        //update state
+        this.setState({dataStore: db});
         //send updated data to data to backend
-        //console.log(receivedDatatobeUpdated)
         const taskData = {
             id: receivedDatatobeUpdated[0].taskNo,
             taskHead: receivedDatatobeUpdated[0].taskHead,
-            taskBody: receivedDatatobeUpdated[0].taskBody
+            taskBody: receivedDatatobeUpdated[0].taskBody,
+            taskDate: receivedDatatobeUpdated[0].tskDate,
+            taskTimeStamp: receivedDatatobeUpdated[0].taskTimeStamp,
+            userId: this.state.currentUser.id
         };
         axios.post("http://localhost:8080/api/auth/taskupdate", taskData)
         .then(res=>{

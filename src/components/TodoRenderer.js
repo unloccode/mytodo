@@ -75,8 +75,17 @@ class RenderCard extends React.Component{
                 alert('No changes made!')
             }else{
                 //if fields submitted are not empty and tasks data not same as existing, data can be updated
+                //time
+                const date = new Date();
+                //format date
+                let newMonth = date.getMonth()+1;
+                let ftimeStamp = "" + date.getDate() + newMonth + date.getFullYear();
+                //format time
+                let h = date.getHours();
+                let m = date.getMinutes();
+                let fdate = h + ':' + m;
                 const combinedData = [
-                    {taskNo: this.props.todo.taskKey, taskHead: this.state.taskH, taskBody: this.state.taskB}
+                    {taskNo: this.props.todo.taskKey, taskHead: this.state.taskH, taskBody: this.state.taskB, taskId: this.state.taskID, taskDone: this.props.todo.done, taskDate: fdate, taskTimeStamp: ftimeStamp}
                 ];
                 //send combine data to origin
                 this.props.handleUpdatedTodoRoute(combinedData);
