@@ -118,9 +118,10 @@ export default class Homer extends React.Component{
         const newData = {taskKey: receivedDatatobeUpdated[0].taskNo, tskHead: receivedDatatobeUpdated[0].taskHead, tksBody: receivedDatatobeUpdated[0].taskBody, tskDate: receivedDatatobeUpdated[0].taskDate, timeStamp: receivedDatatobeUpdated[0].taskTimeStamp};
         //delete init data
         let db = this.state.dataStore;
-        db.splice(taskID, 1);
+        let newTaskId = taskID -1;
+        db.splice(newTaskId, 1);
         //add new data to array
-        db.splice(taskID, 0, newData);
+        db.splice(newTaskId, 0, newData);
         //update state
         this.setState({dataStore: db});
         //send updated data to data to backend

@@ -79,7 +79,7 @@ class RenderCard extends React.Component{
                 const date = new Date();
                 //format date
                 let newMonth = date.getMonth()+1;
-                let ftimeStamp = "" + date.getDate() + newMonth + date.getFullYear();
+                let ftimeStamp = "" + date.getDate() + "/" + newMonth + "/" + date.getFullYear();
                 //format time
                 let h = date.getHours();
                 let m = date.getMinutes();
@@ -89,6 +89,9 @@ class RenderCard extends React.Component{
                 ];
                 //send combine data to origin
                 this.props.handleUpdatedTodoRoute(combinedData);
+                //clear fields
+                this.setState({taskH: ''});
+                this.setState({taskB: ''});
             }
         }
     }
