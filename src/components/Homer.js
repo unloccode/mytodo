@@ -52,7 +52,7 @@ export default class Homer extends React.Component{
         this.setState({dateData: this.state.tarehe.getDate()});
         //update frtDate
         let newMonth = this.state.tarehe.getMonth()+1;
-        let ftimeStamp = "" + this.state.tarehe.getDate()+newMonth+this.state.tarehe.getFullYear();
+        let ftimeStamp = "" + this.state.tarehe.getDate()+"/"+newMonth+"/"+this.state.tarehe.getFullYear();
         this.setState({frtDate: ftimeStamp})
         //extended
         this.setState({rawDates: new Date()});
@@ -74,7 +74,7 @@ export default class Homer extends React.Component{
         let month = receivedInputFromAddTodoButton[0].taskDate.getMonth();
         let year = receivedInputFromAddTodoButton[0].taskDate.getFullYear();
         let newMonth = month+1;
-        let ftimeStamp = ""+date+newMonth+year;
+        let ftimeStamp = ""+date+"/"+newMonth+"/"+year;
         const newData = {tskHead: receivedInputFromAddTodoButton[0].taskHead, tksBody: receivedInputFromAddTodoButton[0].taskBody, tskDate: z, timeStamp: ftimeStamp};
         //update state
         this.setState({dataStore: [...this.state.dataStore, newData]});
@@ -161,7 +161,7 @@ export default class Homer extends React.Component{
         }
         //test unit
         let newMonth = value.getMonth()+1;
-        let ftimeStamp = "" + value.getDate() + newMonth + value.getFullYear();
+        let ftimeStamp = "" + value.getDate() + "/" + newMonth + "/" + value.getFullYear();
         //console.log(ftimeStamp);
         //update date
         this.setState({frtDate: ftimeStamp});
@@ -202,7 +202,7 @@ export default class Homer extends React.Component{
         this.setState({dateData: date});
         //update frtDate
         let newMonth = extraMonth+1;
-        let ftimeStamp = "" + date+newMonth+year;
+        let ftimeStamp = "" + date + "/" +newMonth+ "/" +year;
         //console.log(ftimeStamp);
         this.setState({frtDate: ftimeStamp})
         //test unit

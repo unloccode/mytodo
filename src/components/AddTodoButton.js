@@ -62,7 +62,7 @@ export default class AddTodoButton extends React.Component{
             //this.props.handleSubmits(this.state.titleTask);
             //combine data
             const combinedData = [
-                {taskHead: this.state.titleTask, taskBody: this.state.describeTask, taskDate: this.props.rawDates}
+                {taskHead: this.state.titleTask, taskBody: this.state.describeTask, taskDate: new Date()}
             ];
             this.props.handleSubmits(combinedData);
             //reset fields

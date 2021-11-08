@@ -120,7 +120,7 @@ class RenderCard extends React.Component{
         const date = new Date();
         //format date
         let newMonth = date.getMonth()+1;
-        let ftimeStamp = ""+date.getDate() + "/" + newMonth + "/" + date.getFullYear();
+        let ftimeStamp = "" + date.getDate() + "/" + newMonth + "/" + date.getFullYear();
         //format time
         let h = date.getHours();
         let m = date.getMinutes();
