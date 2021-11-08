@@ -38,7 +38,7 @@ export default class Homer extends React.Component{
         axios.get(`http://localhost:8080/api/auth/task/${userId}`)
         .then(res=>{
             res.data.forEach((count)=>{
-                const newData = {tskHead: count.taskHead, tksBody: count.taskBody, tskDate: count.taskDate, timeStamp: count.taskTimeStamp, done: count.done};
+                const newData = {taskKey: count.id, tskHead: count.taskHead, tksBody: count.taskBody, tskDate: count.taskDate, timeStamp: count.taskTimeStamp, done: count.done};
                 this.setState({dataStore: [...this.state.dataStore, newData]});
                 this.setState({task: this.state.task+1});
             })
@@ -114,16 +114,19 @@ export default class Homer extends React.Component{
         this.setState({task: this.state.task-1})
     }
     receiveDataFromUpdate(receivedDatatobeUpdated){
-        const taskID = receivedDatatobeUpdated[0].taskNo;
-        const newData = {tskHead: receivedDatatobeUpdated[0].taskHead, tksBody: receivedDatatobeUpdated[0].taskBody};
-        //delete init data
-        let indexing = taskID - 1;
-        let db = this.state.dataStore;
-        db.splice(indexing, 1);
-        //add new data to array
-        db.splice(indexing, 0, newData);
-        //update state
-        this.setState({dataStore: db});
+        //const taskID = receivedDatatobeUpdated[0].taskNo;
+        //const newData = {tskHead: receivedDatatobeUpdated[0].taskHead, tksBody: receivedDatatobeUpdated[0].taskBody};
+        ////delete init data
+        //let indexing = taskID - 1;
+        //let db = this.state.dataStore;
+        //db.splice(indexing, 1);
+        ////add new data to array
+        //db.splice(indexing, 0, newData);
+        ////update state
+        ////this.setState({dataStore: db});
+        //console.log(db);
+        //send updated data to data to backend
+        console.log(receivedDatatobeUpdated)
     }
     handleDateTrackerChange(){
         if(this.state.showDate === true){
