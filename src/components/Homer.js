@@ -128,7 +128,7 @@ export default class Homer extends React.Component{
             id: receivedDatatobeUpdated[0].taskNo,
             taskHead: receivedDatatobeUpdated[0].taskHead,
             taskBody: receivedDatatobeUpdated[0].taskBody,
-            taskDate: receivedDatatobeUpdated[0].tskDate,
+            taskDate: receivedDatatobeUpdated[0].taskDate,
             taskTimeStamp: receivedDatatobeUpdated[0].taskTimeStamp,
             userId: this.state.currentUser.id
         };
