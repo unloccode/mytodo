@@ -125,8 +125,20 @@ export default class Homer extends React.Component{
         ////update state
         ////this.setState({dataStore: db});
         //console.log(db);
+
         //send updated data to data to backend
-        console.log(receivedDatatobeUpdated)
+        //console.log(receivedDatatobeUpdated)
+        const taskData = {
+            id: receivedDatatobeUpdated[0].taskNo,
+            taskHead: receivedDatatobeUpdated[0].taskHead,
+            taskBody: receivedDatatobeUpdated[0].taskBody
+        };
+        axios.post("http://localhost:8080/api/auth/taskupdate", taskData)
+        .then(res=>{
+            console.log(res.data);
+        }).catch(error=>{
+            console.log(error);
+        })
     }
     handleDateTrackerChange(){
         if(this.state.showDate === true){

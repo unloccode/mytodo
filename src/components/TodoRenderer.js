@@ -76,7 +76,7 @@ class RenderCard extends React.Component{
             }else{
                 //if fields submitted are not empty and tasks data not same as existing, data can be updated
                 const combinedData = [
-                    {taskNo: this.state.taskID, taskHead: this.state.taskH, taskBody: this.state.taskB}
+                    {taskNo: this.props.todo.taskKey, taskHead: this.state.taskH, taskBody: this.state.taskB}
                 ];
                 //send combine data to origin
                 this.props.handleUpdatedTodoRoute(combinedData);
@@ -274,7 +274,7 @@ export default class TodoRenderer extends React.Component{
         let id = 1;
         this.props.tasks.forEach((todo)=>{
             if(todo.timeStamp === this.props.fstamp){
-                rows.push(<RenderCard todo={todo} id={id} key={todo.tskHead} handleEditDeleteRoute={this.props.handleEditDelete} handleUpdatedTodoRoute={this.props.handleUpdatedTodo}/>)
+                rows.push(<RenderCard todo={todo} id={id} key={todo.taskKey} handleEditDeleteRoute={this.props.handleEditDelete} handleUpdatedTodoRoute={this.props.handleUpdatedTodo}/>)
                 id=id+1;
             }
         });
