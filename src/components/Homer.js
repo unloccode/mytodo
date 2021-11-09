@@ -18,7 +18,7 @@ import axios from 'axios';
 export default class Homer extends React.Component{
     constructor(props){
         super(props);
-        this.state = {currentUser: AuthService.getCurrentUser(), task: this.props.tododatas.length, dataStore: this.props.tododatas, showDate: false, monthData: '', yearData: null, dateData: null, tarehe: new Date(), toggleDayTab: false, frtDate: '', extraDayToggle: false, taskExist: false, perdayTodoCounter: null, rawDates: null};
+        this.state = {currentUser: AuthService.getCurrentUser(), task: this.props.tododatas.length, dataStore: this.props.tododatas, showDate: false, monthData: '', yearData: null, dateData: null, tarehe: new Date(), toggleDayTab: false, frtDate: '', extraDayToggle: false, taskExist: false, perdayTodoCounter: null, rawDates: null, yourDp: null};
         this.Logout = this.Logout.bind(this);
         this.receiveDataFromInput = this.receiveDataFromInput.bind(this);
         this.receiveDataFromModify = this.receiveDataFromModify.bind(this);
@@ -28,6 +28,7 @@ export default class Homer extends React.Component{
         this.handleTareheFromDayTab = this.handleTareheFromDayTab.bind(this);
     }
     componentDidMount(){
+        console.log(profileAvatar);
         const user = AuthService.getCurrentUser();
         if(user){
             console.log(user);
@@ -56,6 +57,14 @@ export default class Homer extends React.Component{
         this.setState({frtDate: ftimeStamp})
         //extended
         this.setState({rawDates: new Date()});
+        //get profile datas
+        axios.get(`http://localhost:8080/api/auth/profiler/${userId}`)
+        .then(res=>{
+            console.log(res.data.profilePicture);
+            this.setState({yourDp: res.data.profilePicture});
+        }).catch(error=>{
+            console.log(error);
+        })
     }
     Logout(){
         AuthService.logout();
@@ -255,7 +264,7 @@ export default class Homer extends React.Component{
                                             <Mepopup trigger={<img src={profileAvatar} alt="User" height="30" style={{cursor: 'pointer'}} />} position="bottom right" arrow={false}>
                                                 <div className="card mt-2 text-center" style={{width: '400px'}}>
                                                     <div className="card-body">
-                                                        <img src={profileAvatar} alt="profile" className="meprofile" />
+                                                        <img src={this.state.yourDp} alt="profile" className="meprofile" />
                                                         <h4>George Limo</h4>
                                                         <Link to='/login'>
                                                             <button onClick={this.Logout}>Logout</button>
