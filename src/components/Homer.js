@@ -1,7 +1,7 @@
 import React from 'react';
 import AuthService from '../services/auth.service';
 import mytodoLogo from '../respictures/mytodologo.png';
-import profileAvatar from '../respictures/userprofile.png';
+//import profileAvatar from '../respictures/userprofile.png';
 import Mepopup from 'reactjs-popup';
 import '../UI/profile.css';
 import { Link } from 'react-router-dom';
@@ -59,8 +59,9 @@ export default class Homer extends React.Component{
         //get profile datas
         axios.get(`http://localhost:8080/api/auth/profiler/${userId}`)
         .then(res=>{
-            console.log(res);
-            //this.setState({yourDp: res.data.profilePicture});
+            console.log(res.data.profilePicture);
+            this.setState({yourDp: 'http://localhost:8080/static/'+res.data.profilePicture});
+            //console.log('http://localhost:8080/static/'+res.data.profilePicture);
             //this.setState({yourDp: });
         }).catch(error=>{
             console.log(error);
@@ -264,10 +265,10 @@ export default class Homer extends React.Component{
                                     </div>
                                     <ul className="navbar-nav">
                                         <li className="nav-item">
-                                            <Mepopup trigger={<img src={profileAvatar} alt="User" height="30" style={{cursor: 'pointer'}} />} position="bottom right" arrow={false}>
+                                            <Mepopup trigger={<img src={this.state.yourDp} alt="User" height="30" style={{cursor: 'pointer', borderRadius: '50%'}} />} position="bottom right" arrow={false}>
                                                 <div className="card mt-2 text-center" style={{width: '400px'}}>
                                                     <div className="card-body">
-                                                        <img src={profileAvatar} alt="profile" className="meprofile" />
+                                                        <img src={this.state.yourDp} alt="profile" className="meprofile" />
                                                         <h4>George Limo</h4>
                                                         <Link to='/login'>
                                                             <button onClick={this.Logout}>Logout</button>
