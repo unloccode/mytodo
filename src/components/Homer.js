@@ -14,7 +14,6 @@ import Kalenda from './Kalenda';
 //connect to the backend
 import axios from 'axios';
 
-
 export default class Homer extends React.Component{
     constructor(props){
         super(props);
@@ -26,9 +25,9 @@ export default class Homer extends React.Component{
         this.handleDateTrackerChange = this.handleDateTrackerChange.bind(this);
         this.handleDateData = this.handleDateData.bind(this);
         this.handleTareheFromDayTab = this.handleTareheFromDayTab.bind(this);
+        this.triggerAction = this.triggerAction.bind(this);
     }
     componentDidMount(){
-        console.log(profileAvatar);
         const user = AuthService.getCurrentUser();
         if(user){
             console.log(user);
@@ -60,8 +59,9 @@ export default class Homer extends React.Component{
         //get profile datas
         axios.get(`http://localhost:8080/api/auth/profiler/${userId}`)
         .then(res=>{
-            console.log(res.data.profilePicture);
-            this.setState({yourDp: res.data.profilePicture});
+            console.log(res);
+            //this.setState({yourDp: res.data.profilePicture});
+            //this.setState({yourDp: });
         }).catch(error=>{
             console.log(error);
         })
@@ -247,6 +247,9 @@ export default class Homer extends React.Component{
             }
         }
     }
+    triggerAction(){
+        console.log(this.state.yourDp);
+    }
     render(){
         const {currentUser} = this.state;
         return(
@@ -264,7 +267,7 @@ export default class Homer extends React.Component{
                                             <Mepopup trigger={<img src={profileAvatar} alt="User" height="30" style={{cursor: 'pointer'}} />} position="bottom right" arrow={false}>
                                                 <div className="card mt-2 text-center" style={{width: '400px'}}>
                                                     <div className="card-body">
-                                                        <img src={this.state.yourDp} alt="profile" className="meprofile" />
+                                                        <img src={profileAvatar} alt="profile" className="meprofile" />
                                                         <h4>George Limo</h4>
                                                         <Link to='/login'>
                                                             <button onClick={this.Logout}>Logout</button>

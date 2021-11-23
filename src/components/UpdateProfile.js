@@ -113,7 +113,7 @@ class UpdateProfile extends React.Component{
                                                         }
                                                     </div>
                                                     <div className="form-group text-center">
-                                                        <label htmlFor="uploadprofile"><FontAwesomeIcon icon={faCamera} size="2x" style={{position:'relative', top: '-70px', left: '70px', color: 'black'}} /></label>
+                                                        <label htmlFor="uploadprofile" style={{cursor: 'pointer'}} ><FontAwesomeIcon icon={faCamera} size="2x" style={{position:'relative', top: '-70px', left: '70px', color: 'black'}} /></label>
                                                         <input type="file" onChange={this.getFileInfo} id="uploadprofile" className="form-control" style={{display: "none"}}  />
                                                     </div>
                                                     <div className="form-group">
