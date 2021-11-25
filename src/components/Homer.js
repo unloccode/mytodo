@@ -272,8 +272,9 @@ export default class Homer extends React.Component{
                                                     <div className="card-body">
                                                         <img src={this.state.yourDp} alt="profile" className="meprofile" />
                                                         <h4>{this.state.yourUsername}</h4>
+                                                        <p style={{cursor: 'pointer'}}><strong>Account Settings</strong></p>
                                                         <Link to='/login'>
-                                                            <button onClick={this.Logout}>Logout</button>
+                                                            <button style={{backgroundColor: 'black', color: 'white', border: 'none', padding: '4px 30px', fontFamily: 'sans-serif', fontSize: '16px'}} onClick={this.Logout}>Logout</button>
                                                         </Link>
                                                     </div>
                                                 </div>
