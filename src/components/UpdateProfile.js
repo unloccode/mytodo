@@ -64,22 +64,22 @@ class UpdateProfile extends React.Component{
         //code
         if(this.state.name && this.state.username !== ''){
                     
-            const formData = new FormData();
-            formData.append('my-image-file', this.state.name);
-            formData.set('luetext', this.state.username);
+            //const formData = new FormData();
+            //formData.append('my-image-file', this.state.name);
+            //formData.set('luetext', this.state.username);
             //console.log(formData);
             //axios.post("http://localhost:8080/updateprofile", formData)
-            axios.post("https://keeptaskserver.herokuapp.com/updateprofile", formData)
-            .then(res=>{
-                this.setState({sendingEmail: false});
-                console.log("Axios response: ", res);
-                console.log(res.data);
-                notify.show(res.data.msg);
-                //reroute
-                this.props.history.push("/activate_account");
-            }).catch((error)=>{
-                console.log(error);
-            })
+            ////axios.post("https://keeptaskserver.herokuapp.com/updateprofile", formData)
+            //.then(res=>{
+            //    this.setState({sendingEmail: false});
+            //    console.log("Axios response: ", res);
+            //    console.log(res.data);
+            //    notify.show(res.data.msg);
+            //    //reroute
+            //    this.props.history.push("/activate_account");
+            //}).catch((error)=>{
+            //    console.log(error);
+            //})
             //cloudinary formdata
             const cloudinaryFormData = new FormData();
             cloudinaryFormData.append("file", this.state.name);
@@ -87,7 +87,30 @@ class UpdateProfile extends React.Component{
             //upload image cloudinary
             axios.post("https://api.cloudinary.com/v1_1/unloccode/image/upload", cloudinaryFormData)
             .then(res=>{
-                console.log(res);
+                console.log(res.data.secure_url);
+                //send data to backend
+                //after image is save to take url
+                //const formData = new FormData();
+                //formData.append('luedp', res.data.secure_url);
+                //formData.set('luetext', this.state.username);
+                //send data
+                const userData = {
+                    luedp: res.data.secure_url,
+                    luetext: this.state.username
+                };
+                //axios.post("http://localhost:8080/updateprofile", userData)
+                axios.post("https://keeptaskserver.herokuapp.com/updateprofile", userData)
+                .then(ress=>{
+                    this.setState({sendingEmail: false});
+                    //console.log(ress.data);
+                    console.log("Axios response: ", ress);
+                    console.log(ress.data);
+                    notify.show(ress.data.msg);
+                    //reroute
+                    this.props.history.push("/activate_account");
+                }).catch((error)=>{
+                    console.log(error);
+                });
             })
         }else{
             console.log("Not Data provided");

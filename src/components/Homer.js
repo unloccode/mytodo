@@ -62,7 +62,8 @@ export default class Homer extends React.Component{
         axios.get(`https://keeptaskserver.herokuapp.com/api/auth/profiler/${userId}`)
         .then(res=>{
             //console.log(res.data.profilePicture);
-            this.setState({yourDp: 'http://localhost:8080/static/'+res.data.profilePicture});
+            //this.setState({yourDp: 'http://localhost:8080/static/'+res.data.profilePicture});
+            this.setState({yourDp: res.data.profilePicture});
             //console.log('http://localhost:8080/static/'+res.data.profilePicture);
             //this.setState({yourDp: });
             //console.log(res.data.username)
