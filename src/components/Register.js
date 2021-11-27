@@ -86,8 +86,9 @@ class Register extends React.Component{
                             email: this.state.email,
                             password: this.state.password
                         }
-                        //send data to the backend server
-                        axios.post("http://localhost:8080/api/auth/signup", user)
+                        //send data to the backend server hosted on heroku
+                        //axios.post("http://localhost:8080/api/auth/signup", user)
+                        axios.post("https://keeptaskserver.herokuapp.com/api/auth/signup", user)
                         .then(res=>{
                             console.log(res.data.message);
                             notify.show(res.data.message);
