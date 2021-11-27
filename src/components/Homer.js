@@ -149,7 +149,7 @@ export default class Homer extends React.Component{
             userId: this.state.currentUser.id
         };
         //axios.post("http://localhost:8080/api/auth/taskupdate", taskData)
-        axios.post("https://keeptaskserver.herokuapp.com/api/auth/taskupdate", taskDate)
+        axios.post("https://keeptaskserver.herokuapp.com/api/auth/taskupdate", taskData)
         .then(res=>{
             console.log(res.data);
         }).catch(error=>{
