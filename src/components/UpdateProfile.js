@@ -68,8 +68,8 @@ class UpdateProfile extends React.Component{
             formData.append('my-image-file', this.state.name);
             formData.set('luetext', this.state.username);
             //console.log(formData);
-
-            axios.post("http://localhost:8080/updateprofile", formData)
+            //axios.post("http://localhost:8080/updateprofile", formData)
+            axios.post("https://keeptaskserver.herokuapp.com/updateprofile", formData)
             .then(res=>{
                 this.setState({sendingEmail: false});
                 console.log("Axios response: ", res);
@@ -85,10 +85,10 @@ class UpdateProfile extends React.Component{
             //cloudinaryFormData.append("file", this.state.name);
             //cloudinaryFormData.append("upload_preset", "opnk2rnc");
             ////upload image cloudinary
-            //axios.post("https://api.cloudinary.com/v1_1/unloccode/image/upload", cloudinaryFormData)
-            //.then(res=>{
-            //    console.log(res);
-            //})
+            axios.post("https://api.cloudinary.com/v1_1/unloccode/image/upload", cloudinaryFormData)
+            .then(res=>{
+                console.log(res);
+            })
         }else{
             console.log("Not Data provided");
         }

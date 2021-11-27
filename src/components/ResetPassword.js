@@ -37,7 +37,8 @@ export default class ResetPassword extends React.Component{
         e.preventDefault();
         console.log(this.state.email)
         //send to data to backend
-        axios.post("http://localhost:8080/api/auth/resetpassword", {email: this.state.email})
+        //axios.post("http://localhost:8080/api/auth/resetpassword", {email: this.state.email})
+        axios.post("https://keeptaskserver.herokuapp.com/api/auth/resetpassword", {email: this.state.email})
         .then(res=>{
             console.log(res);
             //console.log(1);

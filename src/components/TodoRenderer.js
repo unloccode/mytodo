@@ -106,7 +106,8 @@ class RenderCard extends React.Component{
         //axios.delete("http://localhost:8080/api/auth/", {user})
         const userId = this.state.currentUser.id;
         const id = this.props.todo.tskHead;
-        axios.delete(`http://localhost:8080/api/auth/taskrd/${id}`, {data: {foo: userId}})
+        //axios.delete(`http://localhost:8080/api/auth/taskrd/${id}`, {data: {foo: userId}})
+        axios.delete(`https://keeptaskserver.herokuapp.com/api/auth/taskrd/${id}`, {data: {foo: userId}})
         .then(res=>{
             console.log(res.data);
         }).catch(error=>{
@@ -139,8 +140,9 @@ class RenderCard extends React.Component{
             idTask : this.props.todo.tskHead,
             taskDate: fdate,
             taskTimeStamp: ftimeStamp
-        };
-        axios.post("http://localhost:8080/api/auth/taskdone", user)
+        };        
+        //axios.post("http://localhost:8080/api/auth/taskdone", user)
+        axios.post("https://keeptaskserver.herokuapp.com/api/auth/taskdone", user)
         .then(res=>{
             console.log(res.data);
         }).catch(error=>{

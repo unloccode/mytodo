@@ -24,7 +24,8 @@ export default class AllTasks extends React.Component{
         }
         //load data from the backend
         const userId = user.id;
-        axios.get(`http://localhost:8080/api/auth/task/${userId}`)
+        //axios.get(`http://localhost:8080/api/auth/task/${userId}`)
+        axios.get(`https://keeptaskserver.herokuapp.com/api/auth/task/${userId}`)
         .then(res=>{
             res.data.forEach((count)=>{
                 const newData = {tskHead: count.taskHead, tksBody: count.taskBody, tskDate: count.taskDate, timeStamp: count.taskTimeStamp};

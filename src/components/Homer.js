@@ -35,7 +35,8 @@ export default class Homer extends React.Component{
         }
         //receive data from the backend
         const userId = user.id;
-        axios.get(`http://localhost:8080/api/auth/task/${userId}`)
+        //axios.get(`http://localhost:8080/api/auth/task/${userId}`)
+        axios.get(`https://keeptaskserver.herokuapp.com/api/auth/task/${userId}`)
         .then(res=>{
             res.data.forEach((count)=>{
                 const newData = {taskKey: count.id, tskHead: count.taskHead, tksBody: count.taskBody, tskDate: count.taskDate, timeStamp: count.taskTimeStamp, done: count.done};
@@ -57,7 +58,8 @@ export default class Homer extends React.Component{
         //extended
         this.setState({rawDates: new Date()});
         //get profile datas
-        axios.get(`http://localhost:8080/api/auth/profiler/${userId}`)
+        //axios.get(`http://localhost:8080/api/auth/profiler/${userId}`)
+        axios.get(`https://keeptaskserver.herokuapp.com/api/auth/profiler/${userId}`)
         .then(res=>{
             //console.log(res.data.profilePicture);
             this.setState({yourDp: 'http://localhost:8080/static/'+res.data.profilePicture});
@@ -107,7 +109,8 @@ export default class Homer extends React.Component{
             userbioId: this.state.currentUser.id
         }
         //send data to the backend server
-        axios.post("http://localhost:8080/api/auth/writetodo", userTask)
+        //axios.post("http://localhost:8080/api/auth/writetodo", userTask)
+        axios.post("https://keeptaskserver.herokuapp.com/api/auth/writetodo", userTask)
         .then(res=>{
             //some code
             console.log(res.data);
@@ -145,7 +148,8 @@ export default class Homer extends React.Component{
             taskTimeStamp: receivedDatatobeUpdated[0].taskTimeStamp,
             userId: this.state.currentUser.id
         };
-        axios.post("http://localhost:8080/api/auth/taskupdate", taskData)
+        //axios.post("http://localhost:8080/api/auth/taskupdate", taskData)
+        axios.post("https://keeptaskserver.herokuapp.com/api/auth/taskupdate", taskDate)
         .then(res=>{
             console.log(res.data);
         }).catch(error=>{

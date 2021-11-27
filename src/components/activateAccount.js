@@ -32,7 +32,7 @@ class ActivateAccount extends React.Component{
         const {id} = this.props.match.params;
         console.log(id);
         //send key to server
-        axios.post(`http://localhost:8080/api/user/${id}`).then(res=>{
+        axios.post(`https://keeptaskserver.herokuapp.com/api/user/${id}`).then(res=>{
             console.log(res);
             console.log(res.data);
             this.setState({confirming: false});

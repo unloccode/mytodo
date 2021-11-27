@@ -47,7 +47,8 @@ class MakePasswordChanges extends React.Component{
             }else{
                 this.setState({passwordIsSimilar: true});
                 //some awesome code
-                axios.post(`http://localhost:8080/api/reset/${id}`, {password: this.state.password})
+                //axios.post(`http://localhost:8080/api/reset/${id}`, {password: this.state.password})
+                axios.post(`https://keeptaskserver.herokuapp.com/api/reset/${id}`, {password: this.state.password})
                 .then((res)=>{
                     console.log(res);
                     //console.log('1');
