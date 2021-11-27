@@ -81,10 +81,10 @@ class UpdateProfile extends React.Component{
                 console.log(error);
             })
             //cloudinary formdata
-            //const cloudinaryFormData = new FormData();
-            //cloudinaryFormData.append("file", this.state.name);
-            //cloudinaryFormData.append("upload_preset", "opnk2rnc");
-            ////upload image cloudinary
+            const cloudinaryFormData = new FormData();
+            cloudinaryFormData.append("file", this.state.name);
+            cloudinaryFormData.append("upload_preset", "opnk2rnc");
+            //upload image cloudinary
             axios.post("https://api.cloudinary.com/v1_1/unloccode/image/upload", cloudinaryFormData)
             .then(res=>{
                 console.log(res);
